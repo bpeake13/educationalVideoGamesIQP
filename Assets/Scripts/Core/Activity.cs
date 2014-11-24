@@ -29,18 +29,18 @@ public class Activity : MonoBehaviour
 	}
 
 	[SerializeField]
-	[Tooltip("The name of this activity")]
+	//[Tooltip("The name of this activity")]
 	private string name;//the name of this activity
 
 	[SerializeField]
-	[Tooltip("The description for this activity")]
+	//[Tooltip("The description for this activity")]
 	private string description;
 
 	[SerializeField]
-	[Tooltip("The identifier that unity will use to load the scene")]
+	//[Tooltip("The identifier that unity will use to load the scene")]
 	private string sceneName;
 
 	[SerializeField]
-	[Tooltip("The identifier of which student this is, if empty this means it is a template activity file")]
+	//[Tooltip("The identifier of which student this is, if empty this means it is a template activity file")]
 	private string studentID;
 }
