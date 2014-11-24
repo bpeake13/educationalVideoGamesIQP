@@ -1,4 +1,5 @@
 ﻿<Properties>
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Core\Student_IO.cs">
     <Files>
@@ -6,6 +7,12 @@
       <File FileName="Assets\Scripts\Core\Metric.cs" Line="74" Column="57" />
       <File FileName="c:\Users\Benjamin\Documents\GitHub\educationalVideoGamesIQP\Assets\Scripts\Core\Activity.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Core\Student_Data.cs" Line="28" Column="3" />
+=======
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\SyncedDocuments\GameDev\RAM\Assets\scripts\TwitterHandler.cs">
+    <Files>
+      <File FileName="..\..\..\SyncedDocuments\GameDev\RAM\Assets\scripts\TwitterHandler.cs" Line="24" Column="3" />
+>>>>>>> origin/Demo
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
