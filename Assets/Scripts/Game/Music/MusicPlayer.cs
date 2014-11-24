@@ -3,10 +3,10 @@ using System.Collections;
 
 public class MusicPlayer : MonoBehaviour
 {
-    public void LoadSong(Song song, int track)
+    public void Setup(MusicDriver driver)
     {
-        this.song = song;
-        this.track = song.GetTrack(track);
+        this.driver = driver;
+        this.track = driver.CurrentSong.GetTrack(playerIndex);
     }
 
     public void Step(float time)
@@ -21,8 +21,9 @@ public class MusicPlayer : MonoBehaviour
     {
     }
 
-    private Song song;
-    private Track track;
+    [SerializeField]
+    private int playerIndex;
 
-    private float bpm;
+    private MusicDriver driver;
+    private Track track;
 }

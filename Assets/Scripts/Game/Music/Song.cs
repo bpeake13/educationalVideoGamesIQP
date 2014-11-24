@@ -116,17 +116,47 @@ public class Song
     /// <param name="t">The time to convert.</param>
     public int TimeToBeat(float t)
     {
+        float onBeatDelta = BeatPeriod * beatTimeAmount;
         float timePassed = t - (startDelay + timeOffset);
-        if (timePassed < 0)
+        if (timePassed + onBeatDelta < 0)
             return 0;
 
         if(clip != null)
             timePassed = Mathf.Min(timePassed, clip.length);
 
         float bps = bpm / 60f;//get the number of beats in a second
-        int beats = Mathf.FloorToInt(bps * timePassed) + 1;
+        int beats = Mathf.RoundToInt(bps * timePassed) + 1;
 
         return beats;
+    }
+
+    /// <summary>
+    /// Gets the closest beat time.
+    /// </summary>
+    /// <returns>The closest beat time.</returns>
+    /// <param name="time">The real time we are at in the song.</param>
+    /// <param name="onBeat">When on beat this is set to true, otherwise false.</param>
+    public float GetClosestBeatTime(float time, out bool onBeat)
+    {
+        float secondsPerBeat = BeatPeriod;
+        float startOffset = startDelay + timeOffset;
+        
+        float beatTime;
+        
+        if (time < startOffset)
+        {
+            beatTime = startOffset;
+        }
+        else
+        {
+            float beatShift = (startOffset) % secondsPerBeat;//the number of seconds that the beat pattern is shifted by
+            float closestTime = Mathf.Round(time / secondsPerBeat) * secondsPerBeat + beatShift;//round to the closest time
+            beatTime = closestTime;
+        }
+        
+        float onBeatDelta = secondsPerBeat * beatTimeAmount;
+        onBeat = Mathf.Abs(time - beatTime) <= onBeatDelta;
+        return beatTime;
     }
 
     /// <summary>
@@ -144,6 +174,10 @@ public class Song
     [SerializeField]
     [Tooltip("The beats per minute of the song")]
     private float bpm = 120;
+
+    [SerializeField]
+    [Tooltip("The percent of the beat period that is considered to be on beat")]
+    private float beatTimeAmount = 0.05f;
 
     [SerializeField]
     [Tooltip("The path to the audio file to use")]
@@ -183,6 +217,18 @@ public class Track
         }
 
         return track;
+    }
+
+    /// <summary>
+    /// Gets the row at the beat
+    /// </summary>
+    /// <returns>The row data at the beat.</returns>
+    /// <param name="beat">The beat index.</param>
+    public RowData GetRow(int beat)
+    {
+        if (beatTable.ContainsKey(beat))
+            return null;
+        return beatTable [beat];
     }
 
 	[SerializeField]

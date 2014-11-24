@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Note : MonoBehaviour
+public abstract class Note : MonoBehaviour
 {
+    public abstract void Execute();
 }
