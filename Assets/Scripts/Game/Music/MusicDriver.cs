@@ -44,6 +44,10 @@ public class MusicDriver : MonoBehaviour
         isPaused = false;
     }
 
+	public bool GetBeatEdge() {
+		return beatEdge;
+	}
+
     protected virtual void Update()
     {
         if (!isPlaying)

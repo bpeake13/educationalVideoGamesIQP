@@ -142,19 +142,19 @@ public class Song
     }
 
     [SerializeField]
-    [Tooltip("The beats per minute of the song")]
+    //[Tooltip("The beats per minute of the song")]
     private float bpm = 120;
 
     [SerializeField]
-    [Tooltip("The path to the audio file to use")]
+    //[Tooltip("The path to the audio file to use")]
     private string audioFile;
 
     [SerializeField]
-    [Tooltip("The amount of time (in seconds) that we will wait before considering it the first beat")]
+    //[Tooltip("The amount of time (in seconds) that we will wait before considering it the first beat")]
     private float timeOffset;
 
     [SerializeField]
-    [Tooltip("The amount of time to wait before starting the song when we play")]
+    //[Tooltip("The amount of time to wait before starting the song when we play")]
     private float startDelay;
 
     [SerializeField]

@@ -9,22 +9,20 @@ using System.Xml.Serialization;
 
 public class Student_IO : MonoBehaviour {
 
-	float score;
-	//float time;
-	string studentName;
-	string outputText;
+	// variables for testing purposes
+	//float score;
+	//string studentName;
+	//string outputText;
 
 	// Use this for initialization
 	void Start () {
-		//name = reader.ReadString();
+		Debug.Log("Started!");
+		Debug.Log("Getting Student Names... (jk)");
+		/*// Following calls / variables are for testing purposes
 		studentName = "Sally";
 		score = UnityEngine.Random.Range (0f, 100f);
-		//time = 0f;
 		outputText = studentName + "\r\n" + score;
-		Debug.Log("Started!");
-		Debug.Log("Getting Student Names...");
 		string filepath = @"C:\Users\Benjamin\Documents\IQP Project\";
-		// Following calls are for testing purposes
 		Load (filepath + @"Student Names.txt");
 		foreach (string file in Directory.GetFiles(filepath + @"Student Data\", "*.txt")) {
 			string contents = File.ReadAllText(file);
@@ -36,7 +34,7 @@ public class Student_IO : MonoBehaviour {
 		data.meanScore = 4;
 		Export(filepath + @"Student Data\", data);
 		Student_Data d = Import(filepath + @"Student Data\No_Name.txt");
-		Debug.Log (d.meanScore);
+		Debug.Log (d.meanScore);*/
 	}
 	
 	// Update is called once per frame

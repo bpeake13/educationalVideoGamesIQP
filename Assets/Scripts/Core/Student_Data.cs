@@ -6,14 +6,13 @@ using System.Xml.Serialization;
 
 [XmlRoot("Student_Data")]
 public class Student_Data {
-
-	//[XmlAttribute("name")]
+	
 	public string s_name = "No_Name";
 	public float bestScore = 0f;
 	public float totalScore = 0f;
 	public float meanScore = 0f;
-	[XmlArray("Monsters")]
-	[XmlArrayItem("Monster")]
+	[XmlArray("Student_Data")]
+	[XmlArrayItem("Dtudent_Data")]
 	public List<Student_Data> allStudentData = new List<Student_Data>();
 	public int attempts = 0;
 

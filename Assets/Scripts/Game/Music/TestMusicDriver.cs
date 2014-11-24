@@ -14,7 +14,8 @@ public class TestMusicDriver : MusicDriver
         base.OnBeatStart();
 
         beatCount++;
-        Debug.Log(beatCount.ToString() + " " + beatTimer.ToString());
+		// Commenting this out for my own tests right now ^^
+        //Debug.Log(beatCount.ToString() + " " + beatTimer.ToString());
         beatTimer = 0;
     }
 

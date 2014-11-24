@@ -5,8 +5,8 @@ public class Counter : MonoBehaviour {
 
 	public
 	int value = 0;
-	int maxValue = 0;
-	int minValue = 99999999;
+	int minValue = 0;
+	int maxValue = 99999999;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +18,7 @@ public class Counter : MonoBehaviour {
 	
 	}
 
+	public
 	void add(int input) {
 		value += input;
 		if(value > maxValue) {
@@ -28,6 +29,7 @@ public class Counter : MonoBehaviour {
 		}
 	}
 
+	public
 	void subtract(int input) {
 		value -= input;
 		if(value > maxValue) {
@@ -38,6 +40,7 @@ public class Counter : MonoBehaviour {
 		}
 	}
 
+	public
 	void multiply(int input) {
 		value *= input;
 		if(value > maxValue) {
@@ -47,7 +50,8 @@ public class Counter : MonoBehaviour {
 			value = minValue;
 		}
 	}
-	
+
+	public
 	void divide(int input) {
 		value /= input;
 		if(value > maxValue) {
@@ -58,18 +62,28 @@ public class Counter : MonoBehaviour {
 		}
 	}
 
+	public
 	void setValue(int input) {
 		value = input;
+		if(value > maxValue) {
+			value = maxValue;
+		} else
+		if(value < minValue) {
+			value = minValue;
+		}
 	}
 
+	public
 	void setMaxValue(int input) {
 		maxValue = input;
 	}
 
+	public
 	void setMinValue(int input) {
 		minValue = input;
 	}
 
+	public
 	int getValue() {
 		return value;
 	}

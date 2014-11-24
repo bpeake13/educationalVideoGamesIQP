@@ -32,7 +32,7 @@ public class NoteTypeLib : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("A listing of different types of notes that can be used")]
+    //[Tooltip("A listing of different types of notes that can be used")]
     private List<Note> noteTypes = new List<Note>();
 
     private Dictionary<string, Note> noteTable;//table used at runtime to lookup note types
