@@ -1,6 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Core\Gameplay\Monster.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Core\Gameplay\Monster.cs" Line="8" Column="30" />
+      <File FileName="Assets\Scripts\Core\Counter.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\Music\MusicDriver.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Core\Student_IO.cs" Line="6" Column="1" />
+      <File FileName="Assets\Scripts\Core\Student_Data.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Core\Gameplay\Beat_Indicator.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Core\Game_Metric.cs" Line="20" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
