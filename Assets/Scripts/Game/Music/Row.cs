@@ -22,7 +22,7 @@ public class Row : MonoBehaviour
     public void SetData(RowData data)
     {
 		if(data == null)
-			return null;
+			return;
 
         for (int i = 0; i < 4; i++)//generate notes from the data
         {

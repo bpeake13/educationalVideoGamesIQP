@@ -12,7 +12,30 @@ public class MusicPlayer : MonoBehaviour
 
     public void Step(float time)
     {
+        float deltaTime = time - lastTime;
 
+        float spawnTime = time + 2.f;//get 2 seconds ahead to spawn a beat
+
+        bool wasBeat = false;
+
+        float beatTime = driver.CurrentSong.GetClosestBeatTime(spawnTime, out wasBeat);
+
+        if (wasBeat)
+        {
+            int beatIndex = driver.CurrentSong.TimeToBeat(beatTime);
+
+            if(beatIndex > beatNumber)//spawn a row if we have a new beat
+            {
+                Row r = Instantiate(rowPrefab, rowSpawnPoint.position, Quaternion.identity) as Row;
+                r.SetData(track.GetRow(beatIndex));
+
+                beatNumber = beatIndex;
+
+                rows.Enqueue(r);
+            }
+        }
+
+        lastTime = time;
     }
 
     public void OnBeatStart()
@@ -32,8 +55,15 @@ public class MusicPlayer : MonoBehaviour
 	[Tooltip("The prefab to use for spawning rows of notes.")]
 	private Row rowPrefab;
 
+    [SerializeField]
+    private Transform rowSpawnPoint;
+
     private MusicDriver driver;
     private Track track;
+
+    private float lastTime;
+
+    private int beatNumber = 0;
 
 	private Queue<Row> rows = new Queue<Row>();//the list of rows that are currently scrolling
 }

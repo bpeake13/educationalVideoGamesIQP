@@ -86,6 +86,21 @@ public class Song
         return s;//return the newly created song
     }
 
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(bpm);
+        writer.Write(startDelay);
+        writer.Write(timeOffset);
+        writer.Write(audioFile);
+
+        writer.Write(tracks.Count);
+
+        foreach (Track t in tracks)
+        {
+            t.Serialize(writer);
+        }
+    }
+
     /// <summary>
     /// Gets the audio type that this song should be loaded as
     /// </summary>
@@ -219,6 +234,16 @@ public class Track
         return track;
     }
 
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(beats.Count);
+
+        foreach (RowData r in beats)
+        {
+            r.Serialize(writer);
+        }
+    }
+
     /// <summary>
     /// Gets the row at the beat
     /// </summary>
@@ -278,6 +303,16 @@ public class RowData
         return rd;
 	}
 
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(beat);
+
+        for(int i = 0; i < 4; i++)
+        {
+            notes[i].Serialize(writer);
+        }
+    }
+
     public NoteData GetNote(int index)
     {
         return notes [index];
@@ -307,6 +342,11 @@ public class NoteData
         nd.noteType = reader.ReadString();
 
         return nd;
+    }
+
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(noteType);
     }
 
     /// <summary>

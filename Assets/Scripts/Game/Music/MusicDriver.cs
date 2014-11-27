@@ -106,6 +106,11 @@ public class MusicDriver : MonoBehaviour
 		}
 
 		wasOnBeat = isBeat;
+
+        foreach (MusicPlayer player in players)
+        {
+            player.Step(playingTime);
+        }
 	}
 
 	/// <summary>
