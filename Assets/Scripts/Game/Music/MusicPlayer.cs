@@ -14,7 +14,7 @@ public class MusicPlayer : MonoBehaviour
     {
         float deltaTime = time - lastTime;
 
-        float spawnTime = time + 2.f;//get 2 seconds ahead to spawn a beat
+        float spawnTime = time + 2f;//get 2 seconds ahead to spawn a beat
 
         bool wasBeat = false;
 
@@ -27,7 +27,7 @@ public class MusicPlayer : MonoBehaviour
             if(beatIndex > beatNumber)//spawn a row if we have a new beat
             {
                 Row r = Instantiate(rowPrefab, rowSpawnPoint.position, Quaternion.identity) as Row;
-                r.SetData(track.GetRow(beatIndex));
+                r.SetData(track.GetRow(beatIndex), beatLocation, 2f);
 
                 beatNumber = beatIndex;
 
@@ -57,6 +57,9 @@ public class MusicPlayer : MonoBehaviour
 
     [SerializeField]
     private Transform rowSpawnPoint;
+
+    [SerializeField]
+    private Transform beatLocation;
 
     private MusicDriver driver;
     private Track track;
