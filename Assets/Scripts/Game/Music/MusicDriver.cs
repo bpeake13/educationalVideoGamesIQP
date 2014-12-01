@@ -8,6 +8,15 @@ using System.Collections.Generic;
 [RequireComponent(typeof(AudioSource))]
 public class MusicDriver : MonoBehaviour
 {
+    /// <summary>
+    /// The song that is currently loaded
+    /// </summary>
+    /// <value>The loaded song.</value>
+    public Song CurrentSong
+    {
+        get{ return song;}
+    }
+
     void Awake()
     {
         source = audio;
@@ -16,12 +25,8 @@ public class MusicDriver : MonoBehaviour
     public void LoadSong(Song song)
     {
         source.clip = song.Clip;//load the audio clip
-        
-        playDelayTime = song.StartDelay;
-        beatOffsetTime = song.BeatOffset;
-        secondsPerBeat = song.BeatPeriod;
-        
-        beatRolloffPeriod = secondsPerBeat * beatRolloff;
+		source.loop = false;
+		source.Stop();
 
         this.song = song;
     }
@@ -29,6 +34,7 @@ public class MusicDriver : MonoBehaviour
     public void AddMusicPlayer(MusicPlayer player)
     {
         players.Add(player);
+        player.Setup(this);
     }
 
     public void RemoveMusicPlayer(MusicPlayer player)
@@ -44,68 +50,72 @@ public class MusicDriver : MonoBehaviour
         isPaused = false;
     }
 
-	public bool GetBeatEdge() {
-		return beatEdge;
+	public void Stop()
+	{
+		source.Stop();
+		isPlaying = false;
+		isPaused = false;
 	}
 
-    protected virtual void Update()
-    {
-        if (!isPlaying)
-            return;
+	public void Pause()
+	{
+		source.Pause();
+		isPaused = true;
+	}
 
-        if (isPaused)
-            return;
+	/// <summary>
+	/// Update this instance.
+	/// </summary>
+	protected virtual void Update()
+	{
+		if(!isPlaying || isPaused)//do nothing if not playing or paused
+			return;
 
-        float deltaTime = Time.deltaTime;
-        playingTime += deltaTime;//increase the timer by the amount of time that passed
+		float lastPlayTime = playingTime;
 
-        if (!source.isPlaying)
-        {
-            //if (playingTime >= playDelayTime)
-                //source.Play();
-        } 
-        else
-        {
+		float startDelay = song.StartDelay;
+		if(!source.isPlaying)//if our audio source is not playing
+		{
+			if(playingTime >= startDelay)//if we should be playing then set the play position to the current recorded play time and start playing
+			{
+				source.time = playingTime - startDelay;
+				source.Play();
+			}
+			else//otherwise keep our timer going
+			{
+				playingTime += Time.deltaTime;
+			}
+		}
+		else//if we are playing then our play time should be recorded from the audios to prevent the two from de-syncing
+		{
+			playingTime = source.time + startDelay;
+		}
 
-        }
+		float playTimeDelta = playingTime - lastPlayTime;//calculate a delta from the change in play times
 
-        float closestBeatTime = GetActiveBeatTime();
+		bool isBeat = false;
+		float nearestBeatTime = song.GetClosestBeatTime(playingTime, out isBeat);
 
-        float beatDistance = Mathf.Abs(playingTime - closestBeatTime);//get the distance to the closest beat
+		if(isBeat && !wasOnBeat)//rising edge
+		{
+			OnBeatStart();
+		}
+		else if(!isBeat && wasOnBeat)//falling edge
+		{
+			OnBeatEnd();
+		}
 
-        if (beatEdge && beatDistance >= beatRolloffPeriod)
-        {
-            beatEdge = false;
-            OnBeatEnd();
-        } 
-        else if (!beatEdge && beatDistance <= beatRolloffPeriod)
-        {
-            beatEdge = true;
-            OnBeatStart();
-        }
+		wasOnBeat = isBeat;
 
         foreach (MusicPlayer player in players)
         {
             player.Step(playingTime);
         }
-    }
+	}
 
-    private float GetActiveBeatTime()
-    {
-        float startOffset = playDelayTime + beatOffsetTime;
-
-        if (playingTime < startOffset)
-        {
-            return startOffset;
-        }
-        else
-        {
-            float beatShift = (startOffset) % secondsPerBeat;//the number of seconds that the beat pattern is shifted by
-            float closestTime = Mathf.Round(playingTime / secondsPerBeat) * secondsPerBeat + beatShift;//round to the closest time
-            return closestTime;
-        }
-    }
-
+	/// <summary>
+	/// Called on the start of a beat period
+	/// </summary>
     protected virtual void OnBeatStart()
     {
         foreach (MusicPlayer player in players)
@@ -114,6 +124,9 @@ public class MusicDriver : MonoBehaviour
         }
     }
 
+	/// <summary>
+	/// Called on the end of a beat period
+	/// </summary>
     protected virtual void OnBeatEnd()
     {
         foreach (MusicPlayer player in players)
@@ -135,18 +148,12 @@ public class MusicDriver : MonoBehaviour
     /// </summary>
     private bool isPaused;
 
+	/// <summary>
+	/// The current position in the song track
+	/// </summary>
+	private float playingTime;
+
+	private bool wasOnBeat;
+
     private AudioSource source;
-
-    [SerializeField]
-    private float playingTime;//the amount of time that the song has been playing for
-    private float playDelayTime;
-    private float beatOffsetTime;
-    private float secondsPerBeat;
-
-    [SerializeField]
-    private float beatRolloff = 0.1f;//the percent of the beat period to consider something on beat
-
-    private float beatRolloffPeriod;
-
-    private bool beatEdge;//if true then we are in an active beat
 }
