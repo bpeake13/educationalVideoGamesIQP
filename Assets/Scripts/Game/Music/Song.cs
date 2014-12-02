@@ -86,6 +86,21 @@ public class Song
         return s;//return the newly created song
     }
 
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(bpm);
+        writer.Write(startDelay);
+        writer.Write(timeOffset);
+        writer.Write(audioFile);
+
+        writer.Write(tracks.Count);
+
+        foreach (Track t in tracks)
+        {
+            t.Serialize(writer);
+        }
+    }
+
     /// <summary>
     /// Gets the audio type that this song should be loaded as
     /// </summary>
@@ -116,17 +131,47 @@ public class Song
     /// <param name="t">The time to convert.</param>
     public int TimeToBeat(float t)
     {
+        float onBeatDelta = BeatPeriod * beatTimeAmount;
         float timePassed = t - (startDelay + timeOffset);
-        if (timePassed < 0)
+        if (timePassed + onBeatDelta < 0)
             return 0;
 
         if(clip != null)
             timePassed = Mathf.Min(timePassed, clip.length);
 
         float bps = bpm / 60f;//get the number of beats in a second
-        int beats = Mathf.FloorToInt(bps * timePassed) + 1;
+        int beats = Mathf.RoundToInt(bps * timePassed) + 1;
 
         return beats;
+    }
+
+    /// <summary>
+    /// Gets the closest beat time.
+    /// </summary>
+    /// <returns>The closest beat time.</returns>
+    /// <param name="time">The real time we are at in the song.</param>
+    /// <param name="onBeat">When on beat this is set to true, otherwise false.</param>
+    public float GetClosestBeatTime(float time, out bool onBeat)
+    {
+        float secondsPerBeat = BeatPeriod;
+        float startOffset = startDelay + timeOffset;
+        
+        float beatTime;
+        
+        if (time < startOffset)
+        {
+            beatTime = startOffset;
+        }
+        else
+        {
+            float beatShift = (startOffset) % secondsPerBeat;//the number of seconds that the beat pattern is shifted by
+            float closestTime = Mathf.Round(time / secondsPerBeat) * secondsPerBeat + beatShift;//round to the closest time
+            beatTime = closestTime;
+        }
+        
+        float onBeatDelta = secondsPerBeat * beatTimeAmount;
+        onBeat = Mathf.Abs(time - beatTime) <= onBeatDelta;
+        return beatTime;
     }
 
     /// <summary>
@@ -142,19 +187,23 @@ public class Song
     }
 
     [SerializeField]
-    //[Tooltip("The beats per minute of the song")]
+    [Tooltip("The beats per minute of the song")]
     private float bpm = 120;
 
     [SerializeField]
-    //[Tooltip("The path to the audio file to use")]
+    [Tooltip("The percent of the beat period that is considered to be on beat")]
+    private float beatTimeAmount = 0.05f;
+
+    [SerializeField]
+    [Tooltip("The path to the audio file to use")]
     private string audioFile;
 
     [SerializeField]
-    //[Tooltip("The amount of time (in seconds) that we will wait before considering it the first beat")]
+    [Tooltip("The amount of time (in seconds) that we will wait before considering it the first beat")]
     private float timeOffset;
 
     [SerializeField]
-    //[Tooltip("The amount of time to wait before starting the song when we play")]
+    [Tooltip("The amount of time to wait before starting the song when we play")]
     private float startDelay;
 
     [SerializeField]
@@ -183,6 +232,28 @@ public class Track
         }
 
         return track;
+    }
+
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(beats.Count);
+
+        foreach (RowData r in beats)
+        {
+            r.Serialize(writer);
+        }
+    }
+
+    /// <summary>
+    /// Gets the row at the beat
+    /// </summary>
+    /// <returns>The row data at the beat.</returns>
+    /// <param name="beat">The beat index.</param>
+    public RowData GetRow(int beat)
+    {
+        if (beatTable.ContainsKey(beat))
+            return null;
+        return beatTable [beat];
     }
 
 	[SerializeField]
@@ -232,6 +303,16 @@ public class RowData
         return rd;
 	}
 
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(beat);
+
+        for(int i = 0; i < 4; i++)
+        {
+            notes[i].Serialize(writer);
+        }
+    }
+
     public NoteData GetNote(int index)
     {
         return notes [index];
@@ -261,6 +342,11 @@ public class NoteData
         nd.noteType = reader.ReadString();
 
         return nd;
+    }
+
+    public void Serialize(BinaryWriter writer)
+    {
+        writer.Write(noteType);
     }
 
     /// <summary>
