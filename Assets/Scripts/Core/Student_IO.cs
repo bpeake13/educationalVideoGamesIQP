@@ -43,7 +43,7 @@ public class Student_IO : MonoBehaviour {
 	}
 
 	// Exports student data to the given folder
-	private void Export(string in_filepath, Student_Data data) {
+	public void Export(string in_filepath, Student_Data data) {
 		string tname = data.s_name;
 		string f_filepath = in_filepath + @tname + ".txt";
 		var serializer = new XmlSerializer(typeof(Student_Data));
@@ -53,21 +53,30 @@ public class Student_IO : MonoBehaviour {
 	}
 
 	// Imports student data from a given folder
-	private Student_Data Import(string in_filepath) {
+	public Student_Data Import(string in_filepath) {
 		var serializer = new XmlSerializer(typeof(Student_Data));
-		var stream = new FileStream(in_filepath, FileMode.Open);
-		Student_Data data = serializer.Deserialize(stream) as Student_Data;
-		stream.Close();
+		FileStream stream;
+		Student_Data data;
+		if (System.IO.File.Exists(in_filepath)) {
+			stream = new FileStream(in_filepath, FileMode.Open);
+			data = serializer.Deserialize(stream) as Student_Data;
+			Debug.Log("Student Data exists and loaded");
+			stream.Close();
+		} else {
+			// If file does not exists create a new student data object
+			data = new Student_Data();
+			Debug.Log("Student Data does not exist. New Student Data created");
+		}
 		return data;
 	}
 
 	// Exports text to the given folder
-	private void Write(string in_filepath, string text) {
+	public void Write(string in_filepath, string text) {
 		System.IO.File.WriteAllText(in_filepath, text);
 	}
 
 	// Loads a file, then reads it by line and prints the inforrmation
-	private bool Load(string fileName)
+	public bool Load(string fileName)
 	{
 		// Handle any problems that might arise when reading the text
 		try
