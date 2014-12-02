@@ -52,7 +52,7 @@ public class MusicPlayer : MonoBehaviour
     private int playerIndex;
 
 	[SerializeField]
-	[Tooltip("The prefab to use for spawning rows of notes.")]
+	//[Tooltip("The prefab to use for spawning rows of notes.")]
 	private Row rowPrefab;
 
     [SerializeField]

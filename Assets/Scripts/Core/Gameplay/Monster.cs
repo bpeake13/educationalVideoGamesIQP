@@ -53,7 +53,7 @@ public class Monster : MonoBehaviour {
 		// Update things
 		// Check if on beat
 		if(Input.GetKeyDown ("space")) {
-			if(mdscript.GetBeatEdge()) {
+			if(mdscript.isOnBeat()) {
 				gmscript.hits += 1;
 				onHit (1);
 			} else {

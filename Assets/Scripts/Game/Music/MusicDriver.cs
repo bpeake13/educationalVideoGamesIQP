@@ -63,6 +63,10 @@ public class MusicDriver : MonoBehaviour
 		isPaused = true;
 	}
 
+	public bool isOnBeat() {
+		return wasOnBeat;
+	}
+
 	/// <summary>
 	/// Update this instance.
 	/// </summary>

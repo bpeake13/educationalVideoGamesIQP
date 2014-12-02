@@ -14,7 +14,7 @@ public class Beat_Indicator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(mdscript.GetBeatEdge()) {
+		if(mdscript.isOnBeat()) {
 			renderer.enabled = true;
 		} else {
 			renderer.enabled = false;
@@ -24,7 +24,7 @@ public class Beat_Indicator : MonoBehaviour {
 	// GUI methods related to monsters
 	void OnGUI () {
 		// Put this somewhere else sooner or later
-		if(mdscript.GetBeatEdge()) {
+		if(mdscript.isOnBeat()) {
 			GUI.Label (new Rect (10,35,1000,50), "ATTACK NOW");
 		}
 	}

@@ -295,10 +295,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcea3b699c6bcfb42b59e84faa2aa286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playingTime: 0
-  beatRolloff: .200000003
   testSong:
     bpm: 120
+    beatTimeAmount: .200000003
     audioFile: 
     timeOffset: 0
     startDelay: 0
