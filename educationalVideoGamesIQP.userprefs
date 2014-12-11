@@ -1,25 +1,12 @@
 ﻿<Properties>
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Core\Serialization\USerializerDefaultHandler.cs">
-    <Files>
-      <File FileName="Assets\Scripts\Core\Serialization\USerializerDefaultHandler.cs" Line="156" Column="1" />
-      <File FileName="Assets\Scripts\Core\Serialization\USerializer.cs" Line="29" Column="15" />
-      <File FileName="Assets\Scripts\Core\Reflection\ReflectionHelper.cs" Line="73" Column="17" />
-      <File FileName="Assets\Scripts\Core\Serialization\USerializerHandler.cs" Line="47" Column="47" />
-      <File FileName="Assets\Scripts\Core\Serialization\USerializerDefaultHandler.cs" Line="158" Column="3" />
-=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Core\Gameplay\Monster.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MEditor\TrackEditor\NoteSelector.cs">
     <Files>
-      <File FileName="Assets\Scripts\Core\Gameplay\Monster.cs" Line="8" Column="30" />
-      <File FileName="Assets\Scripts\Core\Counter.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MEditor\TrackEditor\NoteSelector.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Game\Music\MusicDriver.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Core\Student_IO.cs" Line="6" Column="1" />
-      <File FileName="Assets\Scripts\Core\Student_Data.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Core\Gameplay\Beat_Indicator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Core\Game_Metric.cs" Line="20" Column="1" />
->>>>>>> testDemo
+      <File FileName="Assets\Scripts\Game\Music\Song.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\Music\MusicPlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\Music\Row.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
