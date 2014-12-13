@@ -36,5 +36,5 @@ public class TestMusicDriver : MusicDriver
     private float beatTimer;
 
     [SerializeField]
-    private Song testSong;
+    public Song testSong;
 }

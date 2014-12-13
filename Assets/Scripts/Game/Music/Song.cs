@@ -358,7 +358,7 @@ public class NoteData
         NoteTypeLib lib = NoteTypeLib.Instance;
         Note note = lib.getNoteType(noteType);
 
-        return GameObject.Instantiate(note) as Note;
+		return GameObject.Instantiate(note, new Vector3( 20f, 0.836f, 4.89f), Quaternion.Euler(270, 0, 0)) as Note;
 	}
 
 	[SerializeField]

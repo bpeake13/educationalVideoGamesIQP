@@ -3,6 +3,12 @@ using System.Collections;
 
 public class Row : MonoBehaviour
 {
+
+	public void Setup(MusicDriver driver)
+	{
+		this.driver = driver;
+	}
+
 	public int BeatIndex
 	{
 		get{return beatIndex;}
@@ -35,6 +41,7 @@ public class Row : MonoBehaviour
 
 		beatIndex = data.BeatIndex;//copy the beat index
 
+		// Probably don't need this anymore
         Vector3 offset = transform.position - beatLocation.position;
         velocity = offset * (1f / timeTill);
     }
@@ -52,19 +59,41 @@ public class Row : MonoBehaviour
 
     void Update()
     {
-        Vector3 delta = velocity * Time.deltaTime;
+		int onScreenBars = 8;
+		float bpm = 120;//driver.CurrentSong.BPM;
+		float startX = 35f;
+		float endX = -14f;
 
-        transform.position += delta;
+		lifetimer += Time.deltaTime;
+
+		transform.position = new Vector3(((((60f/(float)bpm) - lifetimer/onScreenBars)/(60f/(float)bpm))*startX + endX), transform.position.y, transform.position.z);
+
+		// Experimentally removed
+        //Vector3 delta = velocity * Time.deltaTime;
+
+        //transform.position += delta;
+
+		// Destroy object if too far to the right
+		if(transform.position.x < -22f) {
+			Destroy (gameObject);
+			lifetimer = 0f;
+		}
     }
+
+	private MusicDriver driver;
 
     [SerializeField]
     private Transform[] notePoints = new Transform[4];
 
     private Vector3 velocity;
 
+	private float lifetimer = 0f;
+
 	private int beatIndex;
 
     private Note[] notes = new Note[4];
 
 	private bool isValid = false;
+	
+	private Song song;
 }
