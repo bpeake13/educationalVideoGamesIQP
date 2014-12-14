@@ -57,16 +57,23 @@ public class Row : MonoBehaviour
         }
     }
 
+	void Start() {
+		// Get the music driver
+	    driver = (MusicDriver)GameObject.Find("MusicDriver").GetComponent(typeof(TestMusicDriver));
+	}
+
     void Update()
     {
 		int onScreenBars = 8;
-		float bpm = 120;//driver.CurrentSong.BPM;
+		float bpm = driver.CurrentSong.BPM;
 		float startX = 35f;
 		float endX = -14f;
 
 		lifetimer += Time.deltaTime;
 
-		transform.position = new Vector3(((((60f/(float)bpm) - lifetimer/onScreenBars)/(60f/(float)bpm))*startX + endX), transform.position.y, transform.position.z);
+		if(bpm > 0) {
+			transform.position = new Vector3(((((60f/(float)bpm) - lifetimer/onScreenBars)/(60f/(float)bpm))*startX + endX), transform.position.y, transform.position.z);
+		}
 
 		// Experimentally removed
         //Vector3 delta = velocity * Time.deltaTime;
@@ -80,7 +87,7 @@ public class Row : MonoBehaviour
 		}
     }
 
-	private MusicDriver driver;
+	public MusicDriver driver;
 
     [SerializeField]
     private Transform[] notePoints = new Transform[4];
