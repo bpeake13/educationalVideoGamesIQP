@@ -19,12 +19,14 @@ public class Monster : MonoBehaviour {
 
 	private static List<string> allTypes = new List<string>(); 
 
+	public GUIStyle bigFont;
+
 	// NOTE: All monster types are handled from this one class right now, consider using sub classes
 
 	// Use this for initialization
 	void Start () {
 		// Init enemy health
-		health.setMaxValue(Random.Range (4, 9));
+		health.setMaxValue(Random.Range (6, 12));
 		health.setValue(100);
 		Debug.Log ("enemy health set to " + health.getValue());
 		// Music Driver script
@@ -50,28 +52,14 @@ public class Monster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// Update things
-		// Check if on beat
-		if(Input.GetKeyDown ("space")) {
-			if(mdscript.isOnBeat()) {
-				gmscript.hits += 1;
-				onHit (1);
-			} else {
-				// Whoops, missed the beat
-				gmscript.misses += 1;
-				// Score minus :(
-				gmscript.score -= 5;
-				Debug.Log ("missed the beat");
-			}
-		}
+		
 	}
 
 	// Things that occur when the mob is hit
+	public
 	void onHit(int damage) {
 		if(isActive) {
 			health.subtract (damage);
-			// Score boost!
-			gmscript.score += 10;
 			// Do other things related to animation, scoring, etc. here
 			Debug.Log ("hit registered");
 			if(health.getValue() <= 0) {
@@ -90,9 +78,16 @@ public class Monster : MonoBehaviour {
 	void OnGUI () {
 		GUI.Label (new Rect (10,5,1000,50), "Enemy: " + enemyType);
 		GUI.Label (new Rect (10,20,1000,50), "Health: " + health.getValue ());
+		// TODO: Terrible place for the rest of this
 		// Metric based GUI here for now
 		GUI.Label (new Rect (200,5,1000,50), "Hits: " + gmscript.hits);
 		GUI.Label (new Rect (200,20,1000,50), "Misses: " + gmscript.misses);
 		GUI.Label (new Rect (200,35,1000,50), "Score: " + gmscript.score);
+		int offset = 64;
+		// Button mapping here for now
+		GUI.Label (new Rect (50,192,1000,50), "A", bigFont);
+		GUI.Label (new Rect (50,192 + offset,1000,50), "S", bigFont);
+		GUI.Label (new Rect (50,192 + offset * 2,1000,50), "D", bigFont);
+		GUI.Label (new Rect (50,192 + offset * 3,1000,50), "F", bigFont);
 	}
 }

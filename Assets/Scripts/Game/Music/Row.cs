@@ -24,9 +24,7 @@ public class Row : MonoBehaviour
     /// <summary>
     /// Sets the row to the specified data
     /// </summary>
-    /// <param name="data">The data to set the row to.</param>
-    /// <para name="beatLocation">A transform with the location of where the bar should be on beat</param>
-    public void SetData(RowData data, Transform beatLocation, float timeTill)
+    public void SetData(RowData data)
     {
 		if(data == null)
 			return;
@@ -37,13 +35,14 @@ public class Row : MonoBehaviour
 
             note.transform.position = notePoints[i].position;
             note.transform.parent = transform;
+			notes[i] = note;
         }
 
 		beatIndex = data.BeatIndex;//copy the beat index
 
 		// Probably don't need this anymore
-        Vector3 offset = transform.position - beatLocation.position;
-        velocity = offset * (1f / timeTill);
+        //Vector3 offset = transform.position - beatLocation.position;
+        //velocity = offset * (1f / timeTill);
     }
 
     public void DeleteData()
@@ -60,6 +59,9 @@ public class Row : MonoBehaviour
 	void Start() {
 		// Get the music driver
 	    driver = (MusicDriver)GameObject.Find("MusicDriver").GetComponent(typeof(TestMusicDriver));
+		// Game Metric script
+		gm = GameObject.Find("GameMetric");
+		gmscript = (Game_Metric) gm.GetComponent(typeof(Game_Metric));
 	}
 
     void Update()
@@ -85,12 +87,64 @@ public class Row : MonoBehaviour
 			Destroy (gameObject);
 			lifetimer = 0f;
 		}
-    }
 
+		// User input
+		if(!isHit && (transform.position.x > -16f && transform.position.x < -13f)) {
+			if(Input.GetKeyDown ("a")) {
+				pSystems[3].Play();
+				Destroy (notes[3].gameObject);
+				// Hit
+				gmscript.hits += 1;
+				isHit = true;
+				notes[3].Execute();
+			} else
+			if(Input.GetKeyDown ("s")) {
+				pSystems[2].Play();
+				Destroy (notes[2].gameObject);
+				// Hit
+				gmscript.hits += 1;
+				gmscript.score += 10;
+				isHit = true;
+				notes[2].Execute();
+			} else
+			if(Input.GetKeyDown ("d")) {
+				pSystems[1].Play();
+				Destroy (notes[1].gameObject);
+				// Hit
+				gmscript.hits += 1;
+				gmscript.score += 10;
+				isHit = true;
+				notes[1].Execute();
+			} else
+			if(Input.GetKeyDown ("f")) {
+				pSystems[0].Play();
+				Destroy (notes[0].gameObject);
+				// Hit
+				gmscript.hits += 1;
+				gmscript.score += 10;
+				isHit = true;
+				notes[0].Execute();
+			}
+		}
+		//If can no longer hit, deduct score
+		if(!isHit && transform.position.x < -16f) {
+			// Whoops, missed the beat
+			gmscript.misses += 1;
+			gmscript.score -= 10;
+			isHit = true;
+		}
+    }
+	
 	public MusicDriver driver;
+
+	private GameObject gm; // The student profile object
+	private Game_Metric gmscript;
 
     [SerializeField]
     private Transform[] notePoints = new Transform[4];
+
+	[SerializeField]
+	private ParticleSystem[] pSystems = new ParticleSystem[4];
 
     private Vector3 velocity;
 
@@ -101,6 +155,8 @@ public class Row : MonoBehaviour
     private Note[] notes = new Note[4];
 
 	private bool isValid = false;
+
+	private bool isHit = false;
 	
 	private Song song;
 }

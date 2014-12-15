@@ -5,6 +5,9 @@ public class TestMusicDriver : MusicDriver
 {
     void Start()
     {
+		//testSong = new Song();
+		//testSong.BPM = 120;
+		//testSong.BeatPeriod = 
         LoadSong(testSong);
         Play();
     }
@@ -35,6 +38,5 @@ public class TestMusicDriver : MusicDriver
 
     private float beatTimer;
 
-    [SerializeField]
     public Song testSong;
 }
