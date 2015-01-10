@@ -17,6 +17,10 @@ public class Song
 		}
 	}
 
+    public string Name
+    {
+        get { return name; }
+    }
 
     /// <summary>
     /// The Beats Per Minute of the song
@@ -25,6 +29,7 @@ public class Song
     public float BPM
     {
         get{ return bpm;}
+        set { bpm = value; }
     }
 
     /// <summary>
@@ -56,10 +61,43 @@ public class Song
             if(type == AudioType.UNKNOWN)
                 return null;
 
-            WWW loader = new WWW("file://" + audioFile);
-            clip = loader.GetAudioClip(false, true, type);
+            DirectoryInfo dir = new DirectoryInfo(SongDir);
+            if (!dir.Exists)
+            {
+                Debug.LogError("Song directory does not exist.");
+                return null;
+            }
+
+            string loaderPath = "file://" + dir.FullName + "\\" + audioFile;
+            WWW loader = new WWW(loaderPath);
+
+            while (!loader.isDone) { }
+
+            clip = loader.GetAudioClip(false, false, type);
     
             return clip;
+        }
+    }
+
+    public string AudioFileName
+    {
+        get { return audioFile; }
+        set { audioFile = value; }
+    }
+
+    public string SongDir
+    {
+        get
+        {
+            return Path.Combine("Songs", Name);
+        }
+    }
+
+    public string SongFileName
+    {
+        get
+        {
+            return Path.Combine(SongDir, "info.song");
         }
     }
 
@@ -76,11 +114,21 @@ public class Song
         }
     }
 
+    public Song(string name)
+    {
+        this.name = name;
+        tracks.Add(new Track());
+    }
+
+    private Song()
+    { }
+
     public static Song Deserialize(BinaryReader reader)
     {
         Song s = new Song ();
 
         //read header data
+        s.name = reader.ReadString();
         s.bpm = reader.ReadSingle ();
         s.startDelay = reader.ReadSingle ();
         s.timeOffset = reader.ReadSingle ();
@@ -99,6 +147,7 @@ public class Song
 
     public void Serialize(BinaryWriter writer)
     {
+        writer.Write(name);
         writer.Write(bpm);
         writer.Write(startDelay);
         writer.Write(timeOffset);
@@ -121,18 +170,19 @@ public class Song
         FileInfo info = new FileInfo (audioFile);
 
         string extension = info.Extension.ToUpper ().Substring (1);
-
-        AudioType parsedType = AudioType.UNKNOWN;
-        try
+        switch(extension)
         {
-            parsedType = (AudioType)Enum.Parse(typeof(AudioType), extension);
-        }
-        catch(ArgumentException)
-        {
-            return AudioType.UNKNOWN;
+            case "WAV":
+                return AudioType.WAV;
+            case "OGG":
+                return AudioType.OGGVORBIS;
+            case "MP2":
+                goto case "MP3";
+            case "MP3":
+                return AudioType.MPEG;
         }
 
-        return parsedType;
+        return AudioType.UNKNOWN;
     }
 
     /// <summary>
@@ -198,6 +248,9 @@ public class Song
     }
 
     [SerializeField]
+    private string name = "Untitled";
+
+    [SerializeField]
     //[Tooltip("The beats per minute of the song")]
     private float bpm = 120;
 
@@ -235,7 +288,7 @@ public class Track
         for (int i = 0; i < beatCount; i++)
         {
             RowData row = RowData.Deserialize(reader);
-            if(row.BeatIndex <= 0)
+            if(row.BeatIndex < 0)
                 continue;
 
             track.beats.Add(row);
@@ -255,6 +308,49 @@ public class Track
         }
     }
 
+    public void ClearData()
+    {
+        beats.Clear();
+        beatTable.Clear();
+    }
+
+    public void AddRow(RowData row)
+    {
+        if (row == null)
+            return;
+
+        int index = row.BeatIndex;
+
+        RemoveRow(index);//remove the row to overwrite
+
+        int beatsCount = beats.Count;
+
+        for(int i = 0; i < beatsCount; i++)
+        {
+            RowData other = beats[i];
+
+            if(index > other.BeatIndex)
+            {
+                beats.Insert(i, row);
+                beatTable.Add(index, row);
+                return;
+            }
+        }
+
+        beats.Add(row);
+        beatTable.Add(index, row);
+    }
+
+    public void RemoveRow(int beatIndex)
+    {
+        if(beatTable.ContainsKey(beatIndex))
+        {
+            RowData rowData = beatTable[beatIndex];
+            beats.Remove(rowData);
+            beatTable.Remove(beatIndex);
+        }
+    }
+
     /// <summary>
     /// Gets the row at the beat
     /// </summary>
@@ -262,7 +358,7 @@ public class Track
     /// <param name="beat">The beat index.</param>
     public RowData GetRow(int beat)
     {
-        if (beatTable.ContainsKey(beat))
+        if (!beatTable.ContainsKey(beat))
             return null;
         return beatTable [beat];
     }
@@ -306,7 +402,7 @@ public class RowData
             if(!validNote)
                 note = null;
             else
-                note = null;
+                note = NoteData.Deserialize(reader);
 
             rd.notes[i] = note;
         }
@@ -329,13 +425,22 @@ public class RowData
 
         for(int i = 0; i < 4; i++)
         {
-            notes[i].Serialize(writer);
+            NoteData note = notes[i];
+            writer.Write(note != null);
+
+            if(note != null)
+                notes[i].Serialize(writer);
         }
     }
 
     public NoteData GetNote(int index)
     {
         return notes [index];
+    }
+
+    public void SetData(NoteData[] noteData)
+    {
+        Array.Copy(noteData, notes, 4);
     }
 
     [SerializeField]
@@ -351,6 +456,19 @@ public class RowData
 [Serializable]
 public class NoteData
 {
+    public NoteData()
+    {
+
+    }
+
+    public NoteData(Note source)
+    {
+        if (source)
+            noteType = source.name;
+        else
+            noteType = "";
+    }
+
     /// <summary>
     /// Deserializes a note from a binary stream
     /// </summary>
@@ -375,6 +493,9 @@ public class NoteData
     /// <returns>A note instance that was created, or null on failiure.</returns>
 	public Note CreateNote()
 	{
+        if (string.IsNullOrEmpty(noteType))
+            return null;
+
         NoteTypeLib lib = NoteTypeLib.Instance;
 		Note note;
 		if(UnityEngine.Random.Range(0, 2) == 0) {
