@@ -5,3 +5,4 @@ Temp/
 *.rej
 *.rej.meta
 *.booproj
+obj/

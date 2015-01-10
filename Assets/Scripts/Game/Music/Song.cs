@@ -7,6 +7,17 @@ using System.IO;
 [Serializable]
 public class Song
 {
+	static bool populate = false;
+	void Update() {
+		// Add a default track to the song
+		if(!populate) {
+			Track t = new Track();
+			tracks.Add (t);
+			populate = true;
+		}
+	}
+
+
     /// <summary>
     /// The Beats Per Minute of the song
     /// </summary>
@@ -303,6 +314,15 @@ public class RowData
         return rd;
 	}
 
+	public RowData() {
+		// Default population, replace later
+		for (int i = 0; i < 4; i++)
+		{
+			NoteData note = new NoteData();
+			notes[i] = note;
+		}
+	}
+
     public void Serialize(BinaryWriter writer)
     {
         writer.Write(beat);
@@ -319,7 +339,7 @@ public class RowData
     }
 
     [SerializeField]
-    private int beat;//the beat number in the song we are at
+    private int beat; //the beat number in the song we are at
 
 	[SerializeField]
 	private NoteData[] notes = new NoteData[4];
@@ -356,9 +376,19 @@ public class NoteData
 	public Note CreateNote()
 	{
         NoteTypeLib lib = NoteTypeLib.Instance;
-        Note note = lib.getNoteType(noteType);
+		Note note;
+		if(UnityEngine.Random.Range(0, 2) == 0) {
+        	note = lib.getNoteType("Note 1"); // TODO: Temporary value
+		} else
+		if(UnityEngine.Random.Range(0, 2) == 1) {
+			note = lib.getNoteType("Note 2"); // TODO: Temporary value
+		} else {
+			note = lib.getNoteType("Note 3"); // TODO: Temporary value
+		}
 
-        return GameObject.Instantiate(note) as Note;
+		Debug.Log (lib);
+
+		return GameObject.Instantiate(note, new Vector3( 20f, 0.836f, 4.89f), Quaternion.Euler(270, 270, 270)) as Note;
 	}
 
 	[SerializeField]

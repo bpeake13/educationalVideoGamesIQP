@@ -27,7 +27,7 @@ public class MusicPlayer : MonoBehaviour
             if(beatIndex > beatNumber)//spawn a row if we have a new beat
             {
                 Row r = Instantiate(rowPrefab, rowSpawnPoint.position, Quaternion.identity) as Row;
-                r.SetData(track.GetRow(beatIndex), beatLocation, 2f);
+                r.SetData(track.GetRow(beatIndex));
 
                 beatNumber = beatIndex;
 

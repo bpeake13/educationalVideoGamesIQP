@@ -17,15 +17,16 @@ public class Beat_Indicator : MonoBehaviour {
 		if(mdscript.isOnBeat()) {
 			renderer.enabled = true;
 		} else {
-			renderer.enabled = false;
+			// Commented out
+			//renderer.enabled = false;
 		}
 	}
 
 	// GUI methods related to monsters
 	void OnGUI () {
 		// Put this somewhere else sooner or later
-		if(mdscript.isOnBeat()) {
-			GUI.Label (new Rect (10,35,1000,50), "ATTACK NOW");
-		}
+		//if(mdscript.isOnBeat()) {
+		//	GUI.Label (new Rect (10,35,1000,50), "ATTACK NOW");
+		//}
 	}
 }

@@ -17,25 +17,31 @@ public class NoteTypeLib : MonoBehaviour
     public Note getNoteType(string name)
     {
         Note note = null;
+		//print (noteTypes[0].name);
         noteTable.TryGetValue(name, out note);
         return note;
     }
 
-    void OnAwake()
+    void Awake()
     {
+		instance = this;
+
         int noteTypeCount = noteTypes.Count;
         for (int i = 0; i < noteTypeCount; i++)//add all note types to the table
         {
             Note n = noteTypes[i];
             noteTable.Add(n.name, n);
+
+			Debug.Log ("Loaded " + n.name);
         }
+		//print (noteTypes[0].name);
     }
 
     [SerializeField]
     //[Tooltip("A listing of different types of notes that can be used")]
     private List<Note> noteTypes = new List<Note>();
 
-    private Dictionary<string, Note> noteTable;//table used at runtime to lookup note types
+    private Dictionary<string, Note> noteTable = new Dictionary<string, Note>();//table used at runtime to lookup note types
 
     private static NoteTypeLib instance;//the static instance of the note lib
 }

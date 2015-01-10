@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Student_Data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <s_name>No_Name</s_name>
+  <bestScore>4870</bestScore>
+  <totalScore>4870</totalScore>
+  <meanScore>2435</meanScore>
+  <Student_Data />
+  <attempts>2</attempts>
+</Student_Data>

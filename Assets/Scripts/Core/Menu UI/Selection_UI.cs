@@ -17,6 +17,10 @@ public class Selection_UI : MonoBehaviour {
 
 	void OnGUI() {
 		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
+		if (GUI.Button (new Rect (Screen.width * (9f/10f), Screen.height * (9f/10f), 100, 40), "Quit")) {
+			// Quit the application
+			Application.Quit();
+		}
 		if (GUI.Button (new Rect (Screen.width/8 - 10, Screen.height/4, Screen.width*(3f/8f), Screen.height/2), "Play Game")) {
 			// Change scenes to gameplay
 			Application.LoadLevel ("Game");

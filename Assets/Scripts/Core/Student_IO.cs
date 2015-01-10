@@ -53,7 +53,7 @@ public class Student_IO : MonoBehaviour {
 	}
 
 	// Imports student data from a given folder
-	public Student_Data Import(string in_filepath) {
+	public Student_Data Import(string in_filepath, string password) {
 		var serializer = new XmlSerializer(typeof(Student_Data));
 		FileStream stream;
 		Student_Data data;
@@ -65,15 +65,19 @@ public class Student_IO : MonoBehaviour {
 		} else {
 			// If file does not exists create a new student data object
 			data = new Student_Data();
+			data.password = password;
+			//Export (in_filepath, data);
 			Debug.Log("Student Data does not exist. New Student Data created");
 		}
+		//if(pass
 		return data;
 	}
 
 	// Exports text to the given folder
-	public void Write(string in_filepath, string text) {
+	// Removed, is not compatible with net player
+	/*public void Write(string in_filepath, string text) {
 		System.IO.File.WriteAllText(in_filepath, text);
-	}
+	}*/
 
 	// Loads a file, then reads it by line and prints the inforrmation
 	public bool Load(string fileName)
