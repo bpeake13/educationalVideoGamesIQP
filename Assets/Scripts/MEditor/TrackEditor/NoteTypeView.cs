@@ -16,32 +16,17 @@ public class NoteTypeView : MonoBehaviour
 
         Note[] noteTypes = lib.getNoteTypes();
 
-        RectTransform buttonRect = templateButton.GetRectTransform();
-        float buttonWidth = buttonRect.offsetMax.x - buttonRect.offsetMin.x;
-
-        RectTransform containerRectTransform = GetComponent<RectTransform>();
-        float newRectWidth = (buttonWidth + buttonSpacing.x) * noteTypes.Length;
-        float currentRectWidth = containerRectTransform.rect.width;
-        containerRectTransform.sizeDelta = new Vector2(newRectWidth - currentRectWidth, 0);
-
-        float xPos = buttonWidth / 2f + buttonSpacing.x + containerRectTransform.rect.xMin;
-
-        ToggleGroup group = GetComponent<ToggleGroup>();
-
-        foreach(Note nt in noteTypes)
+        foreach(Note noteType in noteTypes)
         {
-            NoteTypeButton newNoteButton = Instantiate(templateButton) as NoteTypeButton;//spawn a new button
-            newNoteButton.transform.position = new Vector3(xPos, 0, 0);
-            newNoteButton.transform.SetParent(transform, false);
+            NoteTypeButton newButton = Instantiate(templateButton) as NoteTypeButton;
+            newButton.transform.SetParent(templateButton.transform.parent, false);
 
-            newNoteButton.SetNoteType(nt);
-
-            xPos += buttonWidth + buttonSpacing.x;
-
-            newNoteButton.GetComponent<Toggle>().group = group;
+            newButton.SetNoteType(noteType);
         }
 
-        group.SetAllTogglesOff();
+        Destroy(templateButton.gameObject);
+
+        GetComponent<ToggleGroup>().SetAllTogglesOff();
     }
 
     [SerializeField]

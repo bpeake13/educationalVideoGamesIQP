@@ -10,6 +10,11 @@ public class BeatDetector : MonoBehaviour
         get{ return calculatedBPM;}
     }
 
+    void Start()
+    {
+        source = FindObjectOfType<AudioSource>();//get the audio source in the scene
+    }
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -24,7 +29,7 @@ public class BeatDetector : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 beatDeltas.AddLast(timer);
-                beatTimes.AddLast(totalTimer);
+                beatTimes.AddLast(source.time);//get the time on the song
 
                 timer = 0;
 
@@ -115,6 +120,8 @@ public class BeatDetector : MonoBehaviour
     private float calculatedBPM;
 
     private bool bIsGoodValue;
+
+    private AudioSource source;
 
     [SerializeField]
     private BeatDetectorStateDriver stateDriver;

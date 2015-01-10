@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))] 
 public class BeatDetectorStateDriver : MonoBehaviour
 {
     public enum EBeatDetectorState
@@ -8,7 +9,13 @@ public class BeatDetectorStateDriver : MonoBehaviour
         WaitingForSamples,
         WaitingForGoodData,
         Fixing,
-        Done
+        Done,
+        Unkown
+    }
+
+    void Start()
+    {
+        OnWaitingForSamples(EBeatDetectorState.Unkown);
     }
 
     public void SetState(EBeatDetectorState newState)
@@ -48,11 +55,23 @@ public class BeatDetectorStateDriver : MonoBehaviour
 
     private void OnWaitingForSamples(EBeatDetectorState oldState)
     {
-        bpmText.Hide();
-        indicator.SetBad();
-        detector.gameObject.SetActive(true);
-        driver.gameObject.SetActive(false);
-        mainCanvasAnimator.SetTrigger("triggerBadSample");
+        Song song = SongLoader.Instance.GetSong();
+        AudioClip clip = song.Clip;
+
+        audio.clip = clip;
+
+        float clipLenth = clip.length;
+        audio.time = clipLenth / 2f + Random.RandomRange(-clipLenth / 4f, clipLenth / 4f);
+        audio.Play();
+
+        if (oldState != EBeatDetectorState.Unkown)
+        {
+            bpmText.Hide();
+            indicator.SetBad();
+            detector.gameObject.SetActive(true);
+            driver.gameObject.SetActive(false);
+            mainCanvasAnimator.SetTrigger("triggerBadSample");
+        }
     }
 
     private void OnWaitingForGoodData(EBeatDetectorState oldState)
@@ -71,6 +90,10 @@ public class BeatDetectorStateDriver : MonoBehaviour
 
     private void OnDone(EBeatDetectorState oldState)
     {
+        Song song = SongLoader.Instance.GetSong();
+        song.BPM = detector.CalculatedBPM;
+
+        Application.LoadLevel("TrackEditor");
     }
 
     private EBeatDetectorState currentState = EBeatDetectorState.WaitingForSamples;
