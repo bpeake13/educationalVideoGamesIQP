@@ -3,6 +3,12 @@ using System.Collections;
 
 public class EditorRow : MonoBehaviour
 {
+    public int BeatIndex
+    {
+        get { return beatNumber; }
+        set { beatNumber = value; }
+    }
+
     /// <summary>
     /// Package back into row data
     /// </summary>
@@ -34,7 +40,7 @@ public class EditorRow : MonoBehaviour
             newData[i] = note;
         }
 
-        RowData row = new RowData();
+        RowData row = new RowData(beatNumber);
         row.SetData(newData);
 
         return row;

@@ -66,6 +66,7 @@ public class TrackEditor : MonoBehaviour
         for (int i = 0; i < totalBeats; i++)//spawn every beat object
         {
             EditorRow row = Instantiate(editorRowTemplate) as EditorRow;//create a new editor row
+            row.BeatIndex = i;
             row.Load(track.GetRow(i));
             rows[i] = row;
 

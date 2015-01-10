@@ -2,6 +2,7 @@ Library/
 Temp/
 *.csproj
 *.sln
+*.suo
 *.rej
 *.rej.meta
 *.booproj
