@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Row : MonoBehaviour
 {
-
+	
 	public void Setup(MusicDriver driver)
 	{
 		this.driver = driver;
@@ -87,7 +87,10 @@ public class Row : MonoBehaviour
 			Destroy (gameObject);
 			lifetimer = 0f;
 		}
+    }
 
+	// returns false if input registers a miss
+	public bool ExecuteInput() {
 		// User input
 		if(!isHit && (transform.position.x > -16f && transform.position.x < -13f)) {
 			if(Input.GetKeyDown ("a")) {
@@ -95,8 +98,11 @@ public class Row : MonoBehaviour
 				Destroy (notes[3].gameObject);
 				// Hit
 				gmscript.hits += 1;
+				gmscript.score += 10;
 				isHit = true;
 				notes[3].Execute();
+				goodTone.Play ();
+				return true;
 			} else
 			if(Input.GetKeyDown ("s")) {
 				pSystems[2].Play();
@@ -106,6 +112,8 @@ public class Row : MonoBehaviour
 				gmscript.score += 10;
 				isHit = true;
 				notes[2].Execute();
+				goodTone.Play ();
+				return true;
 			} else
 			if(Input.GetKeyDown ("d")) {
 				pSystems[1].Play();
@@ -115,6 +123,8 @@ public class Row : MonoBehaviour
 				gmscript.score += 10;
 				isHit = true;
 				notes[1].Execute();
+				goodTone.Play ();
+				return true;
 			} else
 			if(Input.GetKeyDown ("f")) {
 				pSystems[0].Play();
@@ -124,6 +134,8 @@ public class Row : MonoBehaviour
 				gmscript.score += 10;
 				isHit = true;
 				notes[0].Execute();
+				goodTone.Play ();
+				return true;
 			}
 		}
 		//If can no longer hit, deduct score
@@ -133,9 +145,15 @@ public class Row : MonoBehaviour
 			gmscript.score -= 10;
 			isHit = true;
 		}
-    }
-	
+		if(Input.GetKeyDown ("a") || Input.GetKeyDown ("s") || Input.GetKeyDown ("d") || Input.GetKeyDown ("f")) {
+			return false;
+		}
+		return true;
+	}
+
 	public MusicDriver driver;
+
+	public AudioSource goodTone;
 
 	private GameObject gm; // The student profile object
 	private Game_Metric gmscript;

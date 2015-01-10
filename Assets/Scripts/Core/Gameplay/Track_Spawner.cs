@@ -6,8 +6,8 @@ public class Track_Spawner : MonoBehaviour {
 	public GameObject track;
 	private MusicDriver driver;
 	private Row script;
-	private static float timer = 0f;
-	private static float lifetime = 0f;
+	private float timer = 0f;
+	private float lifetime = 0f;
 
 	// Use this for initialization
 	void Start () {

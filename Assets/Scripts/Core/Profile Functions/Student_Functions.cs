@@ -19,7 +19,7 @@ public class Student_Functions : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//Debug.Log (Application.dataPath + @"/Student Data/");
+		// Application.dataPath.Remove(Application.dataPath.Length - 7) + @"/Student Data/";
 		sp = GameObject.Find("Profile");
 		spscript = (Student_Profile) sp.GetComponent(typeof(Student_Profile));
 		studentData = spscript.getStudentData();
@@ -27,17 +27,20 @@ public class Student_Functions : MonoBehaviour {
 		IOScript = (Student_IO) io.GetComponent(typeof(Student_IO));
 		gm = GameObject.Find("GameMetric");
 		gmscript = (Game_Metric) gm.GetComponent(typeof(Game_Metric));
+		// Export student data
+		string filepath = Application.dataPath + @"/Student Data/";
+		IOScript.Export(filepath, studentData);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		string filepath = Application.dataPath.Remove(Application.dataPath.Length - 7) + @"/Student Data/";
-		if(Input.GetKeyDown ("e")) {
+		string filepath = Application.dataPath + @"/Student Data/";
+		//if(Input.GetKeyDown ("e")) {
 			// Update student data
-			UpdateStudentMetrics ();
+			//UpdateStudentMetrics ();
 			// Export the data
-			IOScript.Export(filepath, studentData);
-		}
+			//IOScript.Export(filepath, studentData);
+		//}
 		if(Input.GetKeyDown (KeyCode.Escape)) {
 			// Update student data
 			UpdateStudentMetrics ();
@@ -53,6 +56,13 @@ public class Student_Functions : MonoBehaviour {
 		if(gmscript.score > studentData.bestScore) {
 			studentData.bestScore = gmscript.score;
 		}
+		if(gmscript.hits > studentData.mostHits) {
+			studentData.mostHits = gmscript.hits;
+		}
+		if(gmscript.misses < studentData.fewestMisses) {
+			studentData.fewestMisses = gmscript.misses;
+		}
+		studentData.allScores.Add(gmscript.score);
 		studentData.totalScore += gmscript.score;
 		studentData.meanScore = studentData.totalScore/studentData.attempts;
 	}

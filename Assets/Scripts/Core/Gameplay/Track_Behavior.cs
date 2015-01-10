@@ -3,22 +3,37 @@ using System.Collections;
 
 public class Track_Behavior : MonoBehaviour {
 
-	private float lifetimer = 0f;
-	public int onScreenBars = 8;
-	public int bpm = 120;
+	private Object[] rows;
+	public AudioSource badTone;
+
+	private GameObject gm; // The student profile object
+	private Game_Metric gmscript;
 
 	// Use this for initialization
 	void Start () {
+		// Game Metric script
+		gm = GameObject.Find("GameMetric");
+		gmscript = (Game_Metric) gm.GetComponent(typeof(Game_Metric));
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//transform.Translate (new Vector3(-3f * Time.deltaTime, 0f, 0f));
-		transform.position = new Vector3(((((60f/(float)bpm) - lifetimer/onScreenBars)/(60f/(float)bpm))*35f - 15f), transform.position.y, transform.position.z);
-		lifetimer += Time.deltaTime;
-		if(transform.position.x < -22f) {
-			Destroy (gameObject);
-			lifetimer = 0f;
+		rows = GameObject.FindGameObjectsWithTag("Row");
+		bool totalMiss = true;
+		foreach (GameObject row in rows) {
+			Row Trow = (Row)row.GetComponent(typeof(Row));
+			if(Trow.ExecuteInput()) {
+				totalMiss = false;
+			}
+		}
+		if(GameObject.FindGameObjectsWithTag("Row").Length == 0) {
+			totalMiss = false;
+		}
+		if(totalMiss) {
+			// Whoops, missed the beat
+			gmscript.misses += 1;
+			gmscript.score -= 10;
+			badTone.Play ();
 		}
 	}
 }
