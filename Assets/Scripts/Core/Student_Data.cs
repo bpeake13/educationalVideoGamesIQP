@@ -15,13 +15,18 @@ public class Student_Data {
 	public int fewestMisses = 999;
 	public string password = "";
 	public int attempts = 0;
+	public int achievementsUnlocked = 0;
+	public int selectedAvatar = 0;
 	[XmlArray("Student_Data")]
 	[XmlArrayItem("Student_Data")]
 	public List<float> allScores = new List<float>();
+	[XmlArray("Avatars_Unlocked")]
+	[XmlArrayItem("Avatars_Unlocked")]
+	public List<bool> unlockedAvatars = new List<bool>();
 
 	// Use this for initialization
 	void Start () {
-		allScores.Add (0);
+		
 	}
 	
 	// Update is called once per frame

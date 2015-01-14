@@ -21,13 +21,17 @@ public class Selection_UI : MonoBehaviour {
 			// Quit the application
 			Application.Quit();
 		}
-		if (GUI.Button (new Rect (Screen.width/8 - 10, Screen.height/4, Screen.width*(3f/8f), Screen.height/2), "Play Game")) {
+		if (GUI.Button (new Rect (Screen.width/8 - 10, Screen.height/4, Screen.width*(2f/8f), Screen.height/2), "Play Game")) {
 			// Change scenes to gameplay
 			Application.LoadLevel ("Game");
 		}
-		if (GUI.Button (new Rect (Screen.width/2 + 10, Screen.height/4, Screen.width*(3f/8f), Screen.height/2), "View Stats")) {
+		if (GUI.Button (new Rect (Screen.width*3/8, Screen.height/4, Screen.width*(2f/8f), Screen.height/2), "View Stats")) {
 			// Change to stats screen
 			Application.LoadLevel ("Stats");
+		}
+		if (GUI.Button (new Rect (Screen.width*5/8 + 10, Screen.height/4, Screen.width*(2f/8f), Screen.height/2), "Unlock Things!")) {
+			// Change to stats screen
+			Application.LoadLevel ("unlocks");
 		}
 	}
 }

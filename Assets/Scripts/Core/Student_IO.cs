@@ -14,6 +14,9 @@ public class Student_IO : MonoBehaviour {
 	//string studentName;
 	//string outputText;
 
+	// Encryption
+	bool useEncryption = true;
+
 	// Use this for initialization
 	void Start () {
 		Debug.Log("Started!");
@@ -47,9 +50,22 @@ public class Student_IO : MonoBehaviour {
 		string tname = data.s_name;
 		string f_filepath = in_filepath + @tname + ".txt";
 		var serializer = new XmlSerializer(typeof(Student_Data));
-		var stream = new FileStream(f_filepath, FileMode.Create);
-		serializer.Serialize(stream, data);
-		stream.Close();
+		if(!useEncryption) {
+			var stream = new FileStream(f_filepath, FileMode.Create);
+			serializer.Serialize(stream, data);
+			stream.Close();
+		} else {
+			XmlWriterSettings settings = new XmlWriterSettings();
+			settings.CloseOutput = true;
+			StringBuilder sb = new StringBuilder();
+			using (StringWriter writer = new StringWriter(sb)) {
+				serializer.Serialize(writer, data);
+				writer.Close ();
+			}
+			var desEncryption = new DESEncryption();
+			string encryptedText = desEncryption.Encrypt(sb.ToString(), "password");
+			Write (f_filepath, encryptedText);
+		}
 	}
 
 	// Imports student data from a given folder
@@ -59,9 +75,23 @@ public class Student_IO : MonoBehaviour {
 		Student_Data data;
 		if (System.IO.File.Exists(in_filepath)) {
 			stream = new FileStream(in_filepath, FileMode.Open);
-			data = serializer.Deserialize(stream) as Student_Data;
-			Debug.Log("Student Data exists and loaded");
 			stream.Close();
+			if(!useEncryption) {
+				data = serializer.Deserialize(stream) as Student_Data;
+			} else {
+				var desEncryption = new DESEncryption();
+				string decryptedData;
+				string fileContents;
+				Load (in_filepath, out fileContents);
+				desEncryption.TryDecrypt(fileContents, "password", out decryptedData);
+				using (TextReader textReader = new StringReader(decryptedData))
+				{
+					data = serializer.Deserialize(textReader) as Student_Data;
+				}
+				Debug.Log (decryptedData);
+				Debug.Log("Decrypted Data Above");
+			}
+			Debug.Log("Student Data exists and loaded");
 		} else {
 			// If file does not exists create a new student data object
 			data = new Student_Data();
@@ -74,17 +104,25 @@ public class Student_IO : MonoBehaviour {
 	}
 
 	// Exports text to the given folder
-	// Removed, is not compatible with net player
-	/*public void Write(string in_filepath, string text) {
-		System.IO.File.WriteAllText(in_filepath, text);
-	}*/
+	// NOTE: This function may not be compatible with the net player
+	public void Write(string in_filepath, string text) {
 
-	// Loads a file, then reads it by line and prints the inforrmation
-	public bool Load(string fileName)
-	{
-		// Handle any problems that might arise when reading the text
-		try
+		//System.IO.File.WriteAllText(in_filepath, text);
+
+		// Write the stream contents to a new file named "AllTxtFiles.txt".
+		using (StreamWriter outfile = new StreamWriter(in_filepath))
 		{
+			outfile.Write(text);
+			outfile.Close ();
+		}
+	}
+	
+	// Loads a file, then reads it by line and prints the inforrmation
+	public bool Load(string fileName, out string filestring)
+	{
+		filestring = "";
+		// Handle any problems that might arise when reading the text
+		try {
 			string line;
 			// Create a new StreamReader
 			StreamReader reader = new StreamReader(fileName, Encoding.Default);
@@ -92,16 +130,14 @@ public class Student_IO : MonoBehaviour {
 			using (reader)
 			{
 				// While there's lines left in the text file, do this:
-				do
-				{
+				do {
 					line = reader.ReadLine();
-					
-					if (line != null)
-					{
+					if (line != null) {
 						// Do stuff with the information, parse info
 						//string[] entries = line.Split(',');
 						//if (entries.Length > 0) {
 							Debug.Log (line);
+							filestring = line;
 						//}
 					}
 				}

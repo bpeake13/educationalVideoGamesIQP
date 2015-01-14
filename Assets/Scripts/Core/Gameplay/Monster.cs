@@ -23,6 +23,7 @@ public class Monster : MonoBehaviour {
 
 	private static List<string> allTypes = new List<string>(); 
 
+	public GUIStyle centeredFont;
 	public GUIStyle bigFont;
 	public GUIStyle FinalFont;
 
@@ -100,14 +101,17 @@ public class Monster : MonoBehaviour {
 		GUI.Label (new Rect (20,45,1000,50), "Misses: " + gmscript.misses, font);
 		GUI.Label (new Rect (20,80,1000,50), "Score: " + gmscript.score, font);
 		// Display Accumulater
-		GUI.Label (new Rect(Screen.width/2 - 16, Screen.height/5 - 16, 1, 1), accumulater.getValue ().ToString(), font);
+		GUI.Label (new Rect(Screen.width/2, Screen.height/5 - 16, 1, 1), accumulater.getValue ().ToString(), centeredFont);
+		// Offsets
 		int offset = 62; // 64
 		int off2 = 280; // 212
+		int offY = Screen.height/64;
+		int offM = Screen.height/12;
 		// Button mapping here for now
-		GUI.Label (new Rect (50,off2,1000,50), "A", bigFont);
-		GUI.Label (new Rect (50,off2 + offset,1000,50), "S", bigFont);
-		GUI.Label (new Rect (50,off2 + offset * 2,1000,50), "D", bigFont);
-		GUI.Label (new Rect (50,off2 + offset * 3,1000,50), "F", bigFont);
+		GUI.Label (new Rect (50,Screen.height/2 - offM*1.5f + offY,1000,0), "A", bigFont);
+		GUI.Label (new Rect (50,Screen.height/2 - offM/2 + offY,1000,0), "S", bigFont);
+		GUI.Label (new Rect (50,Screen.height/2 + offM/2 + offY,1000,0), "D", bigFont);
+		GUI.Label (new Rect (50,Screen.height/2 + offM*1.5f + offY,1000,0), "F", bigFont);
 		// Final score screen
 		if(mdscript.CurrentSong.Clip.length + 5 < lifeTimer) {
 			GUI.Box(new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2), "");
