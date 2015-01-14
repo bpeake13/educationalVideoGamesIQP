@@ -2,7 +2,11 @@ Library/
 Temp/
 *.csproj
 *.sln
+*.suo
 *.rej
 *.rej.meta
 *.booproj
 obj/
+Assets/Student Data/
+Assets/UnityVS/
+ProjectSettings/ProjectSettings.asset

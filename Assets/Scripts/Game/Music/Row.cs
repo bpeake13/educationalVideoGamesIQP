@@ -31,7 +31,7 @@ public class Row : MonoBehaviour
 
         for (int i = 0; i < 4; i++)//generate notes from the data
         {
-            Note note = data.GetNote(i).CreateNote();
+            Note note = data.GetNote(i).CreateNoteRandom();
 
             note.transform.position = notePoints[i].position;
             note.transform.parent = transform;
