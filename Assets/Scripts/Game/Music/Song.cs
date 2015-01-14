@@ -505,8 +505,9 @@ public class NoteData
     [Obsolete("This is a testing method and will be replaced by CreateNote in release versions", false)]
 	public Note CreateNoteRandom()
 	{
-        if (string.IsNullOrEmpty(noteType))
-            return null;
+		// commented this out because it broke things
+        //if (string.IsNullOrEmpty(noteType))
+        //    return null;
 
         NoteTypeLib lib = NoteTypeLib.Instance;
 		Note note;
