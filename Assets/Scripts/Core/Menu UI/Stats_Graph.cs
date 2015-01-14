@@ -34,7 +34,7 @@ public class Stats_Graph : MonoBehaviour {
 		spscript = (Student_Profile) sp.GetComponent(typeof(Student_Profile));
 		sd = spscript.getStudentData();
 		// Add values to graph
-		for(int i = 1; i < sd.allScores.Count; i++) {
+		for(int i = 0; i < sd.allScores.Count; i++) {
 			graphValues.Add ((int)sd.allScores[i]);
 		}
 		for(int i = 0; i < graphValues.Count; i++) {
@@ -51,7 +51,7 @@ public class Stats_Graph : MonoBehaviour {
 
 	// Set the point data for the visual representation of the graph
 	public void CreatePoints() {
-		if(graphValues.Count == 0) {
+		if(graphValues.Count <= 1) {
 			return;
 		}
 		points = new ParticleSystem.Particle[resolution];
@@ -73,7 +73,7 @@ public class Stats_Graph : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(graphDisplayed) {
+		if(graphDisplayed && graphValues.Count > 1) {
 			particleSystem.SetParticles(points, points.Length);
 		} else {
 			particleSystem.Clear ();
