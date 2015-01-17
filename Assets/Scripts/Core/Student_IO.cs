@@ -45,10 +45,26 @@ public class Student_IO : MonoBehaviour {
 
 	}
 
+	// Citation: http://stackoverflow.com/questions/7590446/set-file-permissions-in-c-sharp
+	private static FileAttributes RemoveAttribute(FileAttributes attributes, FileAttributes attributesToRemove)
+	{
+		return attributes & ~attributesToRemove;
+	}
+
 	// Exports student data to the given folder
 	public void Export(string in_filepath, Student_Data data) {
 		string tname = data.s_name;
 		string f_filepath = in_filepath + @tname + ".txt";
+		// Set file attributes so it can be wrote to
+		if(File.Exists (f_filepath)) {
+			FileAttributes attributes = File.GetAttributes(f_filepath);
+			if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+			{
+				attributes = RemoveAttribute(attributes, FileAttributes.ReadOnly);
+				File.SetAttributes(f_filepath, attributes);
+			}
+		}
+		// Export the xml using encryption
 		var serializer = new XmlSerializer(typeof(Student_Data));
 		if(!useEncryption) {
 			var stream = new FileStream(f_filepath, FileMode.Create);
@@ -65,6 +81,9 @@ public class Student_IO : MonoBehaviour {
 			var desEncryption = new DESEncryption();
 			string encryptedText = desEncryption.Encrypt(sb.ToString(), "password");
 			Write (f_filepath, encryptedText);
+			// Set file attributes to read only
+			FileAttributes attributes = File.GetAttributes(f_filepath);
+			File.SetAttributes(f_filepath, File.GetAttributes(f_filepath) | FileAttributes.ReadOnly);
 		}
 	}
 
@@ -73,6 +92,16 @@ public class Student_IO : MonoBehaviour {
 		var serializer = new XmlSerializer(typeof(Student_Data));
 		FileStream stream;
 		Student_Data data;
+		// Set file attributes so it can be wrote to
+		if(File.Exists (in_filepath)) {
+			FileAttributes attributes = File.GetAttributes(in_filepath);
+			if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+			{
+				attributes = RemoveAttribute(attributes, FileAttributes.ReadOnly);
+				File.SetAttributes(in_filepath, attributes);
+			}
+		}
+		// Wop Wop Import stuff
 		if (System.IO.File.Exists(in_filepath)) {
 			stream = new FileStream(in_filepath, FileMode.Open);
 			stream.Close();
