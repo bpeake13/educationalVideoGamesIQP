@@ -8,6 +8,7 @@ public class Stats_Graph : MonoBehaviour {
 
 	// This class generates a graph in the center of the screen using student stats
 
+	private string oldName = "";
 	private int resolution = 800;
 	private float xOffset = -4.4f;
 	private int yOffset = -2;
@@ -33,6 +34,15 @@ public class Stats_Graph : MonoBehaviour {
 		sp = GameObject.Find("Profile");
 		spscript = (Student_Profile) sp.GetComponent(typeof(Student_Profile));
 		sd = spscript.getStudentData();
+		oldName = sd.s_name;
+		initGraph ();
+		graphDisplayed = false;
+	}
+
+	void initGraph() {
+		maxValue = 0;
+		minValue = 999999;
+		graphValues.Clear ();
 		// Add values to graph
 		for(int i = 0; i < sd.allScores.Count; i++) {
 			graphValues.Add ((int)sd.allScores[i]);
@@ -46,7 +56,6 @@ public class Stats_Graph : MonoBehaviour {
 			}
 		}
 		CreatePoints();
-		graphDisplayed = false;
 	}
 
 	// Set the point data for the visual representation of the graph
@@ -73,6 +82,12 @@ public class Stats_Graph : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		sd = spscript.getStudentData();
+		if(sd.s_name != oldName) {
+			particleSystem.Clear ();
+			initGraph ();
+			oldName = sd.s_name;
+		}
 		if(graphDisplayed && graphValues.Count > 1) {
 			particleSystem.SetParticles(points, points.Length);
 		} else {
