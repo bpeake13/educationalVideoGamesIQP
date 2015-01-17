@@ -20,6 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/UI/MEditor/SongFileFinder.unity
   - enabled: 1
-    path: Assets/BeatEditor.unity
+    path: Assets/UI/MEditor/BeatEditor.unity
   - enabled: 1
-    path: Assets/TrackEditor.unity
+    path: Assets/UI/MEditor/TrackEditor.unity
+  - enabled: 1
+    path: Assets/UI/MEditor/EditorMainMenu.unity

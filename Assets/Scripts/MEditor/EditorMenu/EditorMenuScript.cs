@@ -53,7 +53,7 @@ public class EditorMenuScript : MonoBehaviour
 
     public void Cancel()
     {
-        Application.LoadLevel(0);
+        Application.LoadLevel(1);
     }
 
     public void Exit()

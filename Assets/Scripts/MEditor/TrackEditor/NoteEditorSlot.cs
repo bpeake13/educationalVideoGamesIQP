@@ -18,6 +18,9 @@ public class NoteEditorSlot : MonoBehaviour
                 note = null;
             }
 
+            if (!value)
+                return;
+
             note = Instantiate(value) as Note;//create a new copy of the note
             note.name = note.name.Replace("(Clone)", "");
             note.transform.parent = this.transform;
