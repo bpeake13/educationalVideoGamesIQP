@@ -9,6 +9,25 @@ public class EditorRow : MonoBehaviour
         set { beatNumber = value; }
     }
 
+    public bool IsEmpty
+    {
+        get
+        {
+            bool bIsEmpty = true;
+            for (int i = 0; i < 4; i++)
+            {
+                NoteEditorSlot slot = slots[i];
+                if (slot.NoteType != null)
+                {
+                    bIsEmpty = false;
+                    break;
+                }
+            }
+
+            return bIsEmpty;
+        }
+    }
+
     /// <summary>
     /// Package back into row data
     /// </summary>
@@ -16,10 +35,10 @@ public class EditorRow : MonoBehaviour
     public RowData Package()
     {
         bool bIsEmpty = true;
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             NoteEditorSlot slot = slots[i];
-            if(slot.NoteType != null)
+            if (slot.NoteType != null)
             {
                 bIsEmpty = false;
                 break;
@@ -57,6 +76,14 @@ public class EditorRow : MonoBehaviour
         }
 
         beatNumber = data.BeatIndex;//copy over the beat index
+    }
+
+    public void Copy(EditorRow src)
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            slots[i].NoteType = src.slots[i].NoteType;
+        }
     }
 
     [SerializeField]

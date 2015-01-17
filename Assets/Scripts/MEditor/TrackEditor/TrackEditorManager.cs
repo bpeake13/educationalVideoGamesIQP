@@ -110,6 +110,13 @@ public class TrackEditorManager : MonoBehaviour
         scrollSpeed = 0f;
     }
 
+    public void Play()
+    {
+        track.Save();
+
+        Application.LoadLevel("SongLevel");
+    }
+
     public void Save()
     {
         track.Save();//tell the track we are saving
@@ -131,11 +138,21 @@ public class TrackEditorManager : MonoBehaviour
         writer.Close();
     }
 
+    public void OpenOptions()
+    {
+        Application.LoadLevel("TrackEditorOptions");
+    }
+
+    public void Generate()
+    {
+        track.Generate();
+    }
+
     public void Close()
     {
         Save();
 
-        Application.LoadLevel(0);
+        Application.LoadLevel("EditorMainMenu");
     }
 
     void Awake()

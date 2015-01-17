@@ -46,6 +46,25 @@ public class TrackEditor : MonoBehaviour
         }
     }
 
+    public void Generate()
+    {
+        int totalBeats = rows.Length;
+
+        int lastRow = -1;
+        for(int i = 0; i < totalBeats; i++)
+        {
+            EditorRow row = rows[i];
+            if (!row.IsEmpty)
+                lastRow = i;
+        }
+
+        for(int i = lastRow + 1; i < totalBeats; i++)
+        {
+            int srcIndex = i % (lastRow + 1);
+            rows[i].Copy(rows[srcIndex]);
+        }
+    }
+
     private IEnumerator LoadTrack(Song song)
     {
         float bpm = song.BPM;//the bpm of the song
