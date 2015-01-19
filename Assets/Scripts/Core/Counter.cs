@@ -79,8 +79,18 @@ public class Counter : MonoBehaviour {
 	}
 
 	public
+	int getMaxValue() {
+		return maxValue;
+	}
+
+	public
 	void setMinValue(int input) {
 		minValue = input;
+	}
+
+	public
+	int getMinValue() {
+		return minValue;
 	}
 
 	public

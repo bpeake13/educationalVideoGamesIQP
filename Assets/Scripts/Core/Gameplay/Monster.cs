@@ -24,8 +24,14 @@ public class Monster : MonoBehaviour {
 	private static List<string> allTypes = new List<string>(); 
 
 	public GUIStyle centeredFont;
+	public GUIStyle enemyFont;
 	public GUIStyle bigFont;
 	public GUIStyle FinalFont;
+
+	public Texture2D progressBarEmpty;
+	public Texture2D progressBarFull;
+	public Texture2D progressBarBorder;
+	public GUIStyle barStyle;
 
 	// NOTE: All monster types are handled from this one class right now, consider using sub classes
 
@@ -91,15 +97,15 @@ public class Monster : MonoBehaviour {
 
 	// GUI methods related to monsters
 	void OnGUI () {
-		GUI.Box (new Rect(Screen.width - 460, 10, 450, 80), "");
-		GUI.Label (new Rect (Screen.width - 450,15,1000,50), "Enemy: " + enemyType, font);
-		GUI.Label (new Rect (Screen.width - 450,50,1000,50), "Health: " + health.getValue (), font);
+		GUI.Box (new Rect(Screen.width - 190, 10, 180, 35), "");
+		GUI.Label (new Rect (Screen.width/2,50,0,50), "Enemy: " + enemyType, enemyFont);
+		GUI.Label (new Rect (Screen.width - 180,10,1000,50), "Health: " + health.getValue (), font);
 		// TODO: Terrible place for the rest of this
 		// Metric based GUI here for now
-		GUI.Box (new Rect(10, 10, 250, 105), "");
+		GUI.Box (new Rect(10, 10, 180, 70), "");
 		GUI.Label (new Rect (20,10,1000,50), "Hits: " + gmscript.hits, font);
 		GUI.Label (new Rect (20,45,1000,50), "Misses: " + gmscript.misses, font);
-		GUI.Label (new Rect (20,80,1000,50), "Score: " + gmscript.score, font);
+		//GUI.Label (new Rect (20,80,1000,50), "Score: " + gmscript.score, font);
 		// Display Accumulater
 		GUI.Label (new Rect(Screen.width/2, Screen.height/5 - 16, 1, 1), accumulater.getValue ().ToString(), centeredFont);
 		// Offsets
@@ -122,5 +128,20 @@ public class Monster : MonoBehaviour {
 			           "Press ESC to return", FinalFont);
 			}
 		}
+		// draw the background:
+		//ScaleMode.StretchToFill;
+		GUI.BeginGroup (new Rect (Screen.width/4 - 3, 20 - 3, Screen.width/2 + 6, 20 + 6));
+		GUI.DrawTexture (new Rect (0,0, Screen.width/2 + 6, 26),progressBarBorder, ScaleMode.StretchToFill );
+		GUI.DrawTexture (new Rect (3,3, Screen.width/2, 20),progressBarEmpty, ScaleMode.StretchToFill );
+			
+			// draw the filled-in part:
+			float barDisplay = health.getValue ()/(float)health.getMaxValue();
+			GUI.BeginGroup (new Rect (3, 3, Screen.width/2 * barDisplay, 20));
+			GUI.DrawTexture (new Rect (0,0, Screen.width/2, 20),progressBarFull, ScaleMode.StretchToFill );
+			
+			GUI.EndGroup ();
+
+		GUI.EndGroup ();
+			
 	}
 }
