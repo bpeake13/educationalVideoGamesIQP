@@ -98,7 +98,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 121773316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92e865715afa60645b75cf944031f927, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e0163f858444df4b92ecc37b00c6612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &121773318
@@ -2559,15 +2559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcea3b699c6bcfb42b59e84faa2aa286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testSong:
-    name: Untitled
-    bpm: 120
-    beatTimeAmount: .200000003
-    audioFile: 
-    timeOffset: 0
-    startDelay: 0
-    tracks: []
-    clip: {fileID: 8300000, guid: c1884cff7ce32864e895eff7ddbcdf9d, type: 3}
 --- !u!82 &1385551858
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5651,6 +5642,7 @@ GameObject:
   - 135: {fileID: 2140836939}
   - 23: {fileID: 2140836938}
   - 114: {fileID: 2140836942}
+  - 114: {fileID: 2140836943}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -5718,5 +5710,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d735d8950f3ef6c48abdec6ba591604c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2140836943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2140836937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b92c81434805264e903f32f5f91ed61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

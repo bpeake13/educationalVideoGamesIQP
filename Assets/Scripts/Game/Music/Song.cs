@@ -499,7 +499,7 @@ public class NoteData
     }
 
     /// <summary>
-    /// Creates a note from the note data
+    /// Creates a note randomly
     /// </summary>
     /// <returns>A note instance that was created, or null on failiure.</returns>
     [Obsolete("This is a testing method and will be replaced by CreateNote in release versions", false)]
@@ -519,8 +519,6 @@ public class NoteData
 		} else {
 			note = lib.getNoteType("Note 3"); // TODO: Temporary value
 		}
-
-		Debug.Log (lib);
 
 		return GameObject.Instantiate(note, new Vector3( 20f, 0.836f, 4.89f), Quaternion.Euler(270, 270, 270)) as Note;
 	}

@@ -26,7 +26,7 @@ public class Track_Spawner : MonoBehaviour {
 			GameObject o = (GameObject)Instantiate (track, new Vector3( 100f, 0.836f, 4.89f), Quaternion.Euler(270, 0, 0));
 			timer -= 60f/driver.CurrentSong.BPM;
 			script = (Row)o.GetComponent(typeof(Row));
-			script.SetData(new RowData());
+			script.SetData(driver.CurrentSong.GetTrack(0).GetRow(1));
 		}
 	}
 }

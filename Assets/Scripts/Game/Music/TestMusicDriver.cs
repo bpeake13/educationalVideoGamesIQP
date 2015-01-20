@@ -8,6 +8,12 @@ public class TestMusicDriver : MusicDriver
 		//testSong = new Song();
 		//testSong.BPM = 120;
 		//testSong.BeatPeriod = 
+		if(SongLoader.Instance.Load ("Test")) {
+			Debug.Log ("Song loaded");
+		} else {
+			Debug.Log ("Song failed to load");
+		}
+		testSong = SongLoader.Instance.GetSong();
         LoadSong(testSong);
         Play();
     }
@@ -38,5 +44,5 @@ public class TestMusicDriver : MusicDriver
 
     private float beatTimer;
 
-    public Song testSong;
+    private Song testSong;
 }
