@@ -531,7 +531,7 @@ public class NoteData
         NoteTypeLib lib = NoteTypeLib.Instance;
         Note note = lib.getNoteType(noteType);
 
-        Note newNote = GameObject.Instantiate(note) as Note;
+		Note newNote = GameObject.Instantiate(note, new Vector3( 20f, 0.836f, 4.89f), Quaternion.Euler(270, 270, 270)) as Note;
         newNote.name = noteType;
 
         return newNote;

@@ -8,6 +8,7 @@ public class Track_Spawner : MonoBehaviour {
 	private Row script;
 	private float timer = 0f;
 	private float lifetime = 0f;
+	private int rowNo = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +27,8 @@ public class Track_Spawner : MonoBehaviour {
 			GameObject o = (GameObject)Instantiate (track, new Vector3( 100f, 0.836f, 4.89f), Quaternion.Euler(270, 0, 0));
 			timer -= 60f/driver.CurrentSong.BPM;
 			script = (Row)o.GetComponent(typeof(Row));
-			script.SetData(driver.CurrentSong.GetTrack(0).GetRow(1));
+			script.SetData(driver.CurrentSong.GetTrack(0).GetRow(rowNo));
+			rowNo++;
 		}
 	}
 }

@@ -114,7 +114,7 @@ public class TrackEditorManager : MonoBehaviour
     {
         track.Save();
 
-        Application.LoadLevel("SongLevel");
+        Application.LoadLevel("Game");
     }
 
     public void Save()

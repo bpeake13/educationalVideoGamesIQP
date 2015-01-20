@@ -2269,7 +2269,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -2458,9 +2457,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteTypes:
   - {fileID: 11424412, guid: efc648005dc91034fa3945abf0164f18, type: 2}
-  - {fileID: 11451756, guid: a47b4cebfb9686f4e83f6830f8ae7de5, type: 2}
-  - {fileID: 11494794, guid: e09a6745fd51e634ca114b55beba3240, type: 2}
-  - {fileID: 11486916, guid: 6cc1451bdf355ed4aad6c43d6d034349, type: 2}
+  - {fileID: 11400000, guid: a58c0b46d0202f74c9914eb443434d09, type: 2}
+  - {fileID: 11400000, guid: 69b8f425eaf80274dbbb2d778641311d, type: 2}
+  - {fileID: 11400000, guid: 39e400ea8eaa5a74cb8bc12b157a201d, type: 2}
   - {fileID: 11467218, guid: 1923d923414cdb74ca8cb311a399cae9, type: 2}
   - {fileID: 11423278, guid: 45e3f83e91a17ef46a328c61d2a098b6, type: 2}
   - {fileID: 11436374, guid: 8aedd1aea5733d5419f0e27c91cfe8ce, type: 2}
@@ -2737,6 +2736,7 @@ CanvasGroup:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1445278305}
+  m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1

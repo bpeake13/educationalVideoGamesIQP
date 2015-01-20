@@ -12,7 +12,9 @@ public class AttackNote : Note {
 	void Start () {
 		// Monster script
 		mon = GameObject.Find("Monsters");
-		monscript = (Monster) mon.GetComponent(typeof(Monster));
+		if(mon != null) {
+			monscript = (Monster) mon.GetComponent(typeof(Monster));
+		}
 	}
 	
 	// Update is called once per frame
@@ -22,7 +24,9 @@ public class AttackNote : Note {
 	
 	public override void Execute ()
 	{
-		monscript.onHit(attack);
+		if(mon != null) {
+			monscript.onHit(attack);
+		}
 	}
 	
 }

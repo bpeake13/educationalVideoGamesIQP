@@ -31,11 +31,16 @@ public class Row : MonoBehaviour
 
         for (int i = 0; i < 4; i++)//generate notes from the data
         {
-            Note note = data.GetNote(i).CreateNoteRandom();
+			if(data.GetNote(3 - i) != null) {
+	            Note note = data.GetNote(3 - i).CreateNote();
 
-            note.transform.position = notePoints[i].position;
-            note.transform.parent = transform;
-			notes[i] = note;
+				// Note must not be null
+				if(note != null) {
+		            note.transform.position = notePoints[i].position;
+		            note.transform.parent = transform;
+					notes[i] = note;
+				}
+			}
         }
 
 		beatIndex = data.BeatIndex;//copy the beat index
@@ -89,53 +94,41 @@ public class Row : MonoBehaviour
 		}
     }
 
+	// Executes a note's action and handles scoring and sound effects
+	// returns false if input registers a miss, else true
+	private bool executeNote(int index) {
+		if(notes[index] == null) {
+			// Whoops, missed no note here
+			gmscript.misses += 1;
+			gmscript.score -= 10;
+			return false;
+		}
+		pSystems[index].Play();
+		Destroy (notes[index].gameObject);
+		// Hit
+		gmscript.hits += 1;
+		gmscript.score += 10;
+		isHit = true;
+		notes[index].Execute();
+		goodTone.Play ();
+		return true;
+	}
+
 	// returns false if input registers a miss
 	public bool ExecuteInput() {
 		// User input
 		if(!isHit && (transform.position.x > -16f && transform.position.x < -13f)) {
 			if(Input.GetKeyDown ("a")) {
-				pSystems[3].Play();
-				Destroy (notes[3].gameObject);
-				// Hit
-				gmscript.hits += 1;
-				gmscript.score += 10;
-				isHit = true;
-				notes[3].Execute();
-				goodTone.Play ();
-				return true;
+				return executeNote (3);
 			} else
 			if(Input.GetKeyDown ("s")) {
-				pSystems[2].Play();
-				Destroy (notes[2].gameObject);
-				// Hit
-				gmscript.hits += 1;
-				gmscript.score += 10;
-				isHit = true;
-				notes[2].Execute();
-				goodTone.Play ();
-				return true;
+				return executeNote (2);
 			} else
 			if(Input.GetKeyDown ("d")) {
-				pSystems[1].Play();
-				Destroy (notes[1].gameObject);
-				// Hit
-				gmscript.hits += 1;
-				gmscript.score += 10;
-				isHit = true;
-				notes[1].Execute();
-				goodTone.Play ();
-				return true;
+				return executeNote (1);
 			} else
 			if(Input.GetKeyDown ("f")) {
-				pSystems[0].Play();
-				Destroy (notes[0].gameObject);
-				// Hit
-				gmscript.hits += 1;
-				gmscript.score += 10;
-				isHit = true;
-				notes[0].Execute();
-				goodTone.Play ();
-				return true;
+				return executeNote (0);
 			}
 		}
 		//If can no longer hit, deduct score
