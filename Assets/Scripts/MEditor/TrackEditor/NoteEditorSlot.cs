@@ -36,6 +36,7 @@ public class NoteEditorSlot : MonoBehaviour
         note = data.CreateNote();
         note.transform.parent = transform;
         note.transform.localPosition = Vector3.zero;
+        note.transform.eulerAngles = new Vector3(-90, 180, 0);
     }
 
     void OnMouseOver()
