@@ -21,6 +21,7 @@ public class NoteTypeButton : MonoBehaviour
         newNote.name = newNote.name.Replace("(Clone)", "");
         newNote.transform.SetParent(transform, true);
         newNote.transform.eulerAngles = new Vector3(-90, 180, 0);
+        newNote.transform.localScale = new Vector3(60f, 60f, 60f);
         newNote.transform.localPosition = Vector3.zero;
         note = template;
     }

@@ -24,6 +24,8 @@ public class NoteEditorSlot : MonoBehaviour
             note = Instantiate(value) as Note;//create a new copy of the note
             note.name = note.name.Replace("(Clone)", "");
             note.transform.parent = this.transform;
+            note.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            note.transform.localEulerAngles = new Vector3(-90, 180, 0);
             note.transform.localPosition = Vector3.zero;
         }
     }
@@ -34,9 +36,10 @@ public class NoteEditorSlot : MonoBehaviour
             return;
 
         note = data.CreateNote();
-        note.transform.parent = transform;
+        note.transform.parent = this.transform;
+        note.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        note.transform.localEulerAngles = new Vector3(-90, 180, 0);
         note.transform.localPosition = Vector3.zero;
-        note.transform.eulerAngles = new Vector3(-90, 180, 0);
     }
 
     void OnMouseOver()
