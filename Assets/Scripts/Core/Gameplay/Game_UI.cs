@@ -48,8 +48,8 @@ public class Game_UI : MonoBehaviour {
 	// GUI methods related to monsters
 	void OnGUI () {
 		GUI.Box (new Rect(Screen.width - 190, 10, 180, 35), "");
-		GUI.Label (new Rect (Screen.width/2,50,0,50), "Enemy: " + Monster.Instance.getEnemyType(), enemyFont);
-		GUI.Label (new Rect (Screen.width - 180,10,1000,50), "Health: " + Monster.Instance.getEnemyHealth().getValue (), font);
+		GUI.Label (new Rect (Screen.width/2,50,0,50), "Enemy: " + Monster.Instance.getEnemyType(0), enemyFont);
+		GUI.Label (new Rect (Screen.width - 180,10,1000,50), "Health: " + Monster.Instance.getEnemyHealth(0).getValue (), font);
 		// TODO: Terrible place for the rest of this
 		// Metric based GUI here for now
 		GUI.Box (new Rect(10, 10, 180, 70), "");
@@ -85,7 +85,7 @@ public class Game_UI : MonoBehaviour {
 		GUI.DrawTexture (new Rect (3,3, Screen.width/2, 20),progressBarEmpty, ScaleMode.StretchToFill );
 		
 		// draw the filled-in part:
-		float barDisplay = Monster.Instance.getEnemyHealth().getValue ()/(float)Monster.Instance.getEnemyHealth().getMaxValue();
+		float barDisplay = Monster.Instance.getEnemyHealth(0).getValue ()/(float)Monster.Instance.getEnemyHealth(0).getMaxValue();
 		GUI.BeginGroup (new Rect (3, 3, Screen.width/2 * barDisplay, 20));
 		GUI.DrawTexture (new Rect (0,0, Screen.width/2, 20),progressBarFull, ScaleMode.StretchToFill );
 		

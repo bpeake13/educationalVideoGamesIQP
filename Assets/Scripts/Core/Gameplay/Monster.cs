@@ -4,10 +4,8 @@ using System.Collections.Generic;
 
 public class Monster : MonoBehaviour {
 
-	private Counter health = new Counter(); // The health of the mob
-	private Counter accumulater = new Counter();
+	private Counter accumulater = new Counter(); // The amount of stored attack
 	private bool isActive = true; // Whether the mob will be targeted in attacks
-	private string enemyType; // The type of the enemy
 	private AudioSource sword;
 
 	Student_Data studentData;
@@ -18,6 +16,8 @@ public class Monster : MonoBehaviour {
 	private Game_Metric gmscript;
 
 	private static List<string> allTypes = new List<string>(); 
+	private static List<Enemy> allEnemies = new List<Enemy>(); 
+	private List<Enemy> currentEnemies = new List<Enemy>();
 
 	// NOTE: All monster types are handled from this one class right now, consider using sub classes
 
@@ -40,10 +40,6 @@ public class Monster : MonoBehaviour {
 	
 	// Use this for initialization
 	void Initialization () {
-		// Init enemy health
-		health.setMaxValue(Random.Range (6, 12));
-		health.setValue(100);
-		Debug.Log ("enemy health set to " + health.getValue());
 		// Init sword sound effect
 		sword = gameObject.AddComponent<AudioSource>();
 		sword.clip = Resources.Load("sword_clash") as AudioClip;
@@ -66,9 +62,18 @@ public class Monster : MonoBehaviour {
 		allTypes.Add ("Sneaky shellfish");
 		allTypes.Add ("Unsticky Tape");
 
-		enemyType = allTypes.ToArray()[Random.Range (0, allTypes.Count)];
+		currentEnemies.Add(newEnemy(Random.Range (6, 12), allTypes.ToArray()[Random.Range (0, allTypes.Count)]));
 	}
-	
+
+	Enemy newEnemy(int health, string type) {
+		Enemy en = new Enemy();
+		en.setType(type);
+		en.getHealth().setMaxValue(health);
+		en.getHealth().setValue(health);
+		//allEnemies.Add (new Enemy());
+		return en;
+	}
+
 	// Update is called once per frame
 	void Update () {
 
@@ -78,16 +83,15 @@ public class Monster : MonoBehaviour {
 	public
 	void onHit(int damage) {
 		if(isActive) {
-			health.subtract (damage);
+			currentEnemies[0].getHealth().subtract (damage);
 			accumulater.add (damage);
 			// Do other things related to animation, scoring, etc. here
 			Debug.Log ("hit registered");
-			if(health.getValue() <= 0) {
+			if(currentEnemies[0].getHealth().getValue() <= 0) {
 				Debug.Log ("enemy destroyed");
 				// Spawn a new "enemy"
-				health.setMaxValue(Random.Range (4, 9));
-				health.setValue(100);
-				enemyType = allTypes.ToArray()[Random.Range (0, allTypes.Count)];
+				currentEnemies.Clear ();
+				currentEnemies.Add (newEnemy(Random.Range (6, 12), allTypes.ToArray()[Random.Range (0, allTypes.Count)]));
 				// Score boost!
 				gmscript.score += 90;
 				sword.Play ();
@@ -104,11 +108,15 @@ public class Monster : MonoBehaviour {
 		return accumulater.getValue();
 	}
 
-	public string getEnemyType() {
-		return enemyType;
+	public string getEnemyType(int index) {
+		return currentEnemies[index].getType();
 	}
 
-	public Counter getEnemyHealth() {
-		return health;
+	public Counter getEnemyHealth(int index) {
+		return currentEnemies[index].getHealth();
+	}
+
+	public List<Enemy> getAllCurrentEnemies() {
+		return currentEnemies;
 	}
 }
