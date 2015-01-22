@@ -24,6 +24,8 @@ public class Selection_UI : MonoBehaviour {
 			Application.Quit();
 		}
 		if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(1.5f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "Play Game")) {
+			// Set a player pref so the game knows which screen to return to
+			PlayerPrefs.SetString( "GameReturnScreen", "Menu2" );
 			// Change scenes to gameplay
 			Application.LoadLevel ("Game");
 		}

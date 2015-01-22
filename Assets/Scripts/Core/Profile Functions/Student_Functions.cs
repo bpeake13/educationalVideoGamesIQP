@@ -46,8 +46,9 @@ public class Student_Functions : MonoBehaviour {
 			UpdateStudentMetrics ();
 			// Export the data
 			IOScript.Export(filepath, studentData);
-			// Goto title screen
-			Application.LoadLevel ("Menu2");
+			// Goto title screen or editor based on previous screen
+			string grs = PlayerPrefs.GetString( "GameReturnScreen" );
+			Application.LoadLevel( grs );
 		}
 	}
 
