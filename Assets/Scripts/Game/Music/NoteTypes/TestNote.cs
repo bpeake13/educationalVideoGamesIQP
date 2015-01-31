@@ -4,13 +4,13 @@ using System.Collections;
 public class TestNote : Note {
 
 	private GameObject mon; // The student profile object
-	private Monster monscript;
+	private EnemyManager monscript;
 
 	// Use this for initialization
 	void Start () {
 		// Monster script
 		mon = GameObject.Find("Monsters");
-		monscript = (Monster) mon.GetComponent(typeof(Monster));
+		monscript = (EnemyManager) mon.GetComponent(typeof(EnemyManager));
 	}
 
 	// Update is called once per frame
@@ -20,7 +20,7 @@ public class TestNote : Note {
 
 	public override void Execute ()
 	{
-		monscript.onHit(1);
+        monscript.addAccumulater(1);
 	}
 	
 }
