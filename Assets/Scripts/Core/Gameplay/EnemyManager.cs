@@ -22,7 +22,7 @@ public class EnemyManager : MonoBehaviour {
     private int maxNumberOfEnemies = 3;
 
     [SerializeField]
-    private SpawnPoint[] spawnPoints;
+    private SpawnPoint[] spawnPoints = new SpawnPoint[0];
 
     [SerializeField]
     private EnemyLibrary enemyLib;
@@ -34,41 +34,44 @@ public class EnemyManager : MonoBehaviour {
 	public static EnemyManager Instance
 	{
 		get {
-			if (monsters) {
-				return monsters;
-			}
-			
-			GameObject obj = new GameObject("Monster", typeof(EnemyManager));
-			monsters = obj.GetComponent<EnemyManager>();
-			monsters.Initialization();
-			
-			return monsters;
+            return monsters;
 		}
 	}
-	
-	// Use this for initialization
-	void Initialization () {
+
+    void Awake()
+    {
+        monsters = this;
+    }
+
+    void Start()
+    {
         accumulater = GetComponent<Counter>();
         accumulater.OnCounterChanged.AddListener(onAccumulaterValueChanged);
-		// Init sword sound effect
-		sword = gameObject.AddComponent<AudioSource>();
-		sword.clip = Resources.Load("sword_clash") as AudioClip;
-		// Student data script
-		sp = GameObject.Find("Profile");
-		spscript = (Student_Profile) sp.GetComponent(typeof(Student_Profile));
-		studentData = spscript.getStudentData();
-		// Game Metric script
-		gm = GameObject.Find("GameMetric");
-		gmscript = (Game_Metric) gm.GetComponent(typeof(Game_Metric));
-	}
+        // Init sword sound effect
+        sword = gameObject.AddComponent<AudioSource>();
+        sword.clip = Resources.Load("sword_clash") as AudioClip;
+        // Student data script
+        sp = GameObject.Find("Profile");
+        spscript = (Student_Profile)sp.GetComponent(typeof(Student_Profile));
+        studentData = spscript.getStudentData();
+        // Game Metric script
+        gm = GameObject.Find("GameMetric");
+        gmscript = (Game_Metric)gm.GetComponent(typeof(Game_Metric));
+
+        foreach (SpawnPoint spawnPoint in spawnPoints)
+        {
+            if (!spawnPoint.IsTaken)
+                spawnPoint.Spawn();
+        }
+    }
 
 	// Update is called once per frame
 	void Update ()
     {
-        foreach(SpawnPoint sp in spawnPoints)
+        foreach(SpawnPoint spawnPoint in spawnPoints)
         {
-            if (!sp.IsTaken)
-                sp.Spawn();
+            if (!spawnPoint.IsTaken)
+                spawnPoint.Spawn();
         }
 	}
 
@@ -103,16 +106,16 @@ public class EnemyManager : MonoBehaviour {
 	}
 
 	public string getEnemyType(int index) {
-		return currentEnemies[index].getType();
+        return FindObjectOfType<Enemy>().getType();
 	}
 
 	public Enemy getEnemy(int index)
     {
-        return currentEnemies[index];
+        return FindObjectOfType<Enemy>();
     }
 
-	public List<Enemy> getAllCurrentEnemies() {
-		return currentEnemies;
+	public Enemy[] getAllCurrentEnemies() {
+		return FindObjectsOfType<Enemy>();
 	}
 
     private void onAccumulaterValueChanged(int newValue)

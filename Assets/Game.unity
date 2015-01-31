@@ -1479,6 +1479,7 @@ GameObject:
   - 114: {fileID: 802180347}
   - 82: {fileID: 802180349}
   - 114: {fileID: 802180350}
+  - 114: {fileID: 802180351}
   m_Layer: 0
   m_Name: Monsters
   m_TagString: Untagged
@@ -1939,6 +1940,25 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
+--- !u!114 &802180351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 802180346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3aaf80b9c5b6e4ba946eee2954255d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: CounterChangedEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  value: 0
+  minValue: 0
+  maxValue: 99999999
 --- !u!1 &833211389
 GameObject:
   m_ObjectHideFlags: 0

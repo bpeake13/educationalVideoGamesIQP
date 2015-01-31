@@ -60,7 +60,7 @@ public class Counter : MonoBehaviour {
 	}
 
     [SerializeField]
-    private CounterChangedEvent onChangedEvent;
+    private CounterChangedEvent onChangedEvent = new CounterChangedEvent();
 
     [SerializeField]
     private int value = 0;

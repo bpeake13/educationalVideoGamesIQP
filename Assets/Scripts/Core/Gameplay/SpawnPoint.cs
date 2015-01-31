@@ -8,24 +8,28 @@ public class SpawnPoint : MonoBehaviour
         get { return enemySlot != null; }
     }
 
-    public void Spawn(string enemyType)
+    public Enemy Spawn(string enemyType)
     {
         if (enemySlot != null)
-            return;
+            return null;
 
         Enemy newEnemy = EnemyLibrary.Instance.CreateEnemy(enemyType);
         enemySlot = newEnemy;
         newEnemy.StartPoint = this;
+
+        return newEnemy;
     }
 
-    public void Spawn()
+    public Enemy Spawn()
     {
         if (enemySlot != null)
-            return;
+            return null;
 
         Enemy newEnemy = EnemyLibrary.Instance.CreateRandomEnemy();
         enemySlot = newEnemy;
         newEnemy.StartPoint = this;
+
+        return newEnemy;
     }
 
     public void Free()

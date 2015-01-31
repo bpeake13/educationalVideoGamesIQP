@@ -17,6 +17,8 @@ public class EnemyLibrary : MonoBehaviour
             return;
         }
 
+        instance = this;
+
         foreach(Enemy e in enemies)
         {
             enemyTable.Add(e.name, e);
