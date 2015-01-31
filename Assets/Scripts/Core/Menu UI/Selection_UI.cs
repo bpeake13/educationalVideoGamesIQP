@@ -19,7 +19,7 @@ public class Selection_UI : MonoBehaviour {
 		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
 		GUI.Box(new Rect(Screen.width/(3.5f), Screen.height/6 - 10, (Screen.width - Screen.width/(3.5f)*2), Screen.height*(2/3f) + 10), "");
 		GUI.Label(new Rect(Screen.width/2, Screen.height/6 + 45, 0, 0), "Main Menu", bigFont);
-		if (GUI.Button (new Rect (Screen.width * (9f/10f), Screen.height * (9f/10f), 100, 40), "Quit")) {
+		if (GUI.Button (new Rect (Screen.width - 110, Screen.height * (9f/10f), 100, 40), "Quit")) {
 			// Quit the application
 			Application.Quit();
 		}

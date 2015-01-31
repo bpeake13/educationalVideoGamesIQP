@@ -81,15 +81,15 @@ public class Unlocks_UI : MonoBehaviour {
 	void OnGUI() {
 		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
 		GUI.Box(new Rect(Screen.width/8, Screen.height/8, Screen.width*3/4, Screen.height/8 + 20), "");
-		GUI.Box(new Rect(Screen.width/2, Screen.height/4 + 30, Screen.width*3/8, Screen.height/4), "");
-		GUI.Box(new Rect(Screen.width/2, Screen.height/2 + 45, Screen.width*3/8, Screen.height/4), "");
+		GUI.Box(new Rect(Screen.width/2, Screen.height/4 + 30, Screen.width*3/8, Screen.height/4 + 30/5f), "");
+		GUI.Box(new Rect(Screen.width/2, Screen.height/2 + 45, Screen.width*3/8, Screen.height/4 + 30/5f), "");
 		for(int i = 0; i < achievements.Count; i++) {
-			GUI.Box(new Rect(Screen.width/8, Screen.height/4 + i * 80 + 30, Screen.width*3/8 - 10, Screen.height/8), "");
-			GUI.Label (new Rect(Screen.width/8 + 60, Screen.height/4 + i * 80 + 30, Screen.width*1/4, Screen.height/8), achievements[i].getDescription(), achievementFont);
+			GUI.Box(new Rect(Screen.width/8, Screen.height/4 + i * Screen.height/8 + 30 + i * 30/4, Screen.width*3/8 - 10, Screen.height/8), "");
+			GUI.Label (new Rect(Screen.width/8 + 60, Screen.height/4 + i * Screen.height/8 + 30 + i * 30/4, Screen.width*1/4, Screen.height/8), achievements[i].getDescription(), achievementFont);
 			if(achievements[i].getUnlockState()) {
-				GUI.Box(new Rect(Screen.width/8 + 10, Screen.height/4 + i * 80 + 30 + 20, 40, 40), texture2);
+				GUI.Box(new Rect(Screen.width/8 + 10, Screen.height/4 + i * Screen.height/8 + 10 + Screen.height/16 + i * 30/4, 40, 40), texture2);
 			} else {
-				GUI.Box(new Rect(Screen.width/8 + 10, Screen.height/4 + i * 80 + 30 + 20, 40, 40), texture1);
+				GUI.Box(new Rect(Screen.width/8 + 10, Screen.height/4 + i * Screen.height/8 + 10 + Screen.height/16 + i * 30/4, 40, 40), texture1);
 			}
 		}
 		//if (GUI.Button (new Rect (Screen.width/2 -  50, Screen.height/2 + 50, 100, 20), "Continue")) {
@@ -102,8 +102,8 @@ public class Unlocks_UI : MonoBehaviour {
 			Application.LoadLevel ("Menu2");
 		}
 		// Unlocks
-		GUI.Label (new Rect (Screen.width*3/5, Screen.height/3,200,50), "You have " + (sd.achievementsUnlocked - numUnlockedAvatars + 1) + " unlock points", stdFont);
-		if (GUI.Button (new Rect (Screen.width*3/5, Screen.height/2.5f, 200, 40), "Get a new random avatar!") && sd.achievementsUnlocked - numUnlockedAvatars + 1> 0) {
+		GUI.Label (new Rect (Screen.width*0.6875f, Screen.height/3,0,50), "You have " + (sd.achievementsUnlocked - numUnlockedAvatars + 1) + " unlock points", stdFont);
+		if (GUI.Button (new Rect (Screen.width*0.6875f - 100, Screen.height/2.5f, 200, 40), "Get a new random avatar!") && sd.achievementsUnlocked - numUnlockedAvatars + 1> 0) {
 			numUnlockedAvatars += 1;
 			int rand = Random.Range (0, sd.unlockedAvatars.Count);
 			while(true) {
@@ -118,17 +118,17 @@ public class Unlocks_UI : MonoBehaviour {
 				}
 			}
 		}
-		GUI.Label (new Rect (Screen.width*3/5, Screen.height*3/5,200,50), "Click an avatar to use it", stdFont);
+		GUI.Label (new Rect (Screen.width*0.6875f - 7, Screen.height*3/5,0,50), "Click an avatar to use it", stdFont);
 		// The avatars
 		for(int i = 0; i < 5; i++) {
 			if(sd.unlockedAvatars[i]) {
-				if(GUI.Button(new Rect(Screen.width*3.5f/5f + (i - 2.5f) * 50, Screen.height*2/3, 40, 40), allAvatars[i])) {
+				if(GUI.Button(new Rect(Screen.width*0.6875f + ((i - 2.5f) * 50), Screen.height*2/3, 40, 40), allAvatars[i])) {
 					sd.selectedAvatar = i;
 					string filepath = Application.dataPath + @"/Student Data/";
 					ioscript.Export(filepath, sd);
 				}
 			} else {
-				GUI.Box(new Rect(Screen.width*3.5f/5f + (i - 2.5f) * 50, Screen.height*2/3, 40, 40), texture1);
+				GUI.Box(new Rect(Screen.width*0.6875f + ((i - 2.5f) * 50), Screen.height*2/3, 40, 40), texture1);
 			}
 		}
 	}

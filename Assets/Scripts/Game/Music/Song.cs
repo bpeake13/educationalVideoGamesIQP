@@ -67,8 +67,17 @@ public class Song
                 Debug.LogError("Song directory does not exist.");
                 return null;
             }
-
-            string loaderPath = "file://" + dir.FullName + "\\" + audioFile;
+			string loaderPath;
+			if (Application.platform == RuntimePlatform.WindowsPlayer ||
+			    Application.platform == RuntimePlatform.WindowsEditor) {
+           		loaderPath = "file://" + dir.FullName + @"\\" + audioFile;
+			} else if (Application.platform == RuntimePlatform.OSXPlayer ||
+			    Application.platform == RuntimePlatform.OSXEditor) {
+				loaderPath = "file://" + dir.FullName + @"/" + audioFile;
+			} else {
+				loaderPath = "file://" + dir.FullName + @"\\" + audioFile;
+				Debug.Log ("OS not identified as mac or windows, an error may ensue.");
+			}
             WWW loader = new WWW(loaderPath);
 
             while (!loader.isDone) { }
@@ -89,7 +98,7 @@ public class Song
     {
         get
         {
-            return Path.Combine("Songs", Name);
+			return Path.Combine(@"Songs", Name);
         }
     }
 

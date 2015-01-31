@@ -5,9 +5,11 @@ using System.IO;
 
 public class EditorMenuScript : MonoBehaviour
 {
+
     public void New()
     {
-        DirectoryInfo songDirectories = new DirectoryInfo("Songs");
+		string directoryName = @"Songs";
+        DirectoryInfo songDirectories = new DirectoryInfo(directoryName);
 
         DirectoryInfo[] songs = songDirectories.GetDirectories();
         List<string> names = new List<string>();
@@ -30,7 +32,8 @@ public class EditorMenuScript : MonoBehaviour
 
     public void Open()
     {
-        DirectoryInfo songDirectories = new DirectoryInfo("Songs");
+		string directoryName = @"Songs";
+		DirectoryInfo songDirectories = new DirectoryInfo(directoryName);
 
         DirectoryInfo[] songs = songDirectories.GetDirectories();
         List<string> names = new List<string>();

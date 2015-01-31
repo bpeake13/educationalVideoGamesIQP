@@ -41,7 +41,7 @@ public class SongFileFinderScript : MonoBehaviour
         }
         else if(songFiles.Length > 1)
         {
-            ChangeState(FileCheckerState.MultipleFilesError);
+			ChangeState(FileCheckerState.MultipleFilesError);
             return;
         }
 

@@ -35,7 +35,7 @@ public class SongLoader : MonoBehaviour
 
     public bool Load(string song)
     {
-        string file = "Songs\\" + song + "\\info.song";
+		string file = @"Songs/" + song + @"/info.song";
         FileInfo fileInfo = new FileInfo(file);
 
         if (!fileInfo.Exists)

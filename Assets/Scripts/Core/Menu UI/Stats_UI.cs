@@ -6,10 +6,10 @@ using System.IO;
 public class Stats_UI : MonoBehaviour {
 
 	Student_Data sd;
-	private bool studentVersion = true;
+	private bool studentVersion = false;
 	private int dataNo = 0; // The number of files in the directory, used exclusively
 							// in the teacher version
-	private int viewingNo = 0; // The number of the current file being viewed (based on directory position),
+	private int viewingNo = -1; // The number of the current file being viewed (based on directory position),
 							   // used exclusively in the teacher version
 	private GameObject sp; // The student profile object
 	private Student_Profile spscript;
@@ -45,14 +45,18 @@ public class Stats_UI : MonoBehaviour {
 		// teacher version things
 		if(!studentVersion) {
 			string filepath = Application.dataPath;
-			foreach (string file in Directory.GetFiles(filepath + @"\Student Data\", "*.txt")) {
+			foreach (string file in Directory.GetFiles(filepath + @"/Student Data/", "*.txt")) {
 				fileNames.Add (file);
-				if(file == filepath + @"\Student Data\" + sd.s_name + ".txt") {
+				if(file == filepath + @"/Student Data/" + sd.s_name + ".txt") {
 					viewingNo = dataNo;
 					sd = ioscript.Import (fileNames[viewingNo], "");
 				}
 				dataNo++;
 			}
+		}
+		if(viewingNo == -1 && fileNames.Count > 0) {
+			viewingNo = 0;
+			sd = ioscript.Import (fileNames[0], "");
 		}
 	}
 	
@@ -93,13 +97,19 @@ public class Stats_UI : MonoBehaviour {
 				// Export stats to desktop
 				string filepath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
 				Debug.Log (filepath);
-				ioscript.Export(filepath + @"\", sd);
+				ioscript.Export(filepath + @"/", sd);
 			}
 			if (GUI.Button (new Rect (Screen.width - 110, Screen.height * (9f/10f), 100, 40), "Go Back")) {
 				// Change to stats screen
 				Application.LoadLevel ("Menu2");
 			}
 		} else {
+			if (GUI.Button (new Rect (10, Screen.height * (9f/10f), 150, 40), "Export XML to Desktop")) {
+				// Export stats to desktop
+				string filepath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+				Debug.Log (filepath);
+				ioscript.Export(filepath + @"/", sd, false);
+			}
 			if (GUI.Button (new Rect (Screen.width - 110, Screen.height * (9f/10f), 100, 40), "Exit")) {
 				// Change to stats screen
 				Application.Quit();
@@ -127,12 +137,12 @@ public class Stats_UI : MonoBehaviour {
 		GUI.Box (new Rect (Screen.width/4 + Screen.width/16, Screen.height/3, Screen.width * 3.01f/8f, 24), sectionNames[section]);
 		// Display Stats
 		if(statsDisplayed) {
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + 66f + 20f,300 + 20f,50), "Attempts: " + sd.attempts, mediumFont);
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + 133f + 20f,300 + 20f,50), "Best Score: " + sd.bestScore, mediumFont);
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + 200f + 20f,300 + 20f,50), "Mean Score: " + sd.meanScore, mediumFont);
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + 266f + 20f,300 + 20f,50), "Total Score: " + sd.totalScore, mediumFont);
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(1/8f) + 20f,300 + 20f,50), "Attempts: " + sd.attempts, mediumFont);
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(2/8f) + 20f,300 + 20f,50), "Best Score: " + sd.bestScore, mediumFont);
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(3/8f) + 20f,300 + 20f,50), "Mean Score: " + sd.meanScore, mediumFont);
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(4/8f) + 20f,300 + 20f,50), "Total Score: " + sd.totalScore, mediumFont);
 			// Column 2
-			GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + 66f + 20f,300 + 20f,50), "Most Hits: " + sd.mostHits, mediumFont);
+			GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(1/8f) + 20f,300 + 20f,50), "Most Hits: " + sd.mostHits, mediumFont);
 			//GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + 133f + 20f,300 + 20f,50), "More stats to come!", mediumFont);
 		}
 	}
