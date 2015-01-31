@@ -13,7 +13,7 @@ public class Stats_Graph : MonoBehaviour {
 	private float xOffset = -4.4f;
 	private int yOffset = -2;
 	private float xSize = 8.8f;
-	private int ySize = 4;
+	private float ySize = 3.5f; // 4f
 	private int maxValue = 0;
 	private int minValue = 999999;
 
@@ -105,11 +105,11 @@ public class Stats_Graph : MonoBehaviour {
 
 			Vector2 coords = Camera.main.WorldToScreenPoint(new Vector3(-4.4f, 0f, -5f));
 
-			GUI.Label (new Rect ( coords.x - 110f, Screen.height/2.6f,100,200), maxValue.ToString(), font);
+			GUI.Label (new Rect ( coords.x - 110f, Screen.height/2.3f,100,200), maxValue.ToString(), font); // 2.6f
 			GUI.Label (new Rect ( coords.x - 110f, Screen.height*3.1f/4,100,50), minValue.ToString(), font);
 			GUI.Label (new Rect (Screen.width*(1/2f), Screen.height*3.25f/4,0,50), "Time", centeredFont);
-			GUIUtility.RotateAroundPivot(-90, new Vector2(coords.x - 63f, Screen.height*3f/5f));
-			GUI.Label (new Rect ( coords.x - 63f, Screen.height*3f/5f,0,50), "Score", centeredFont);
+			GUIUtility.RotateAroundPivot(-90, new Vector2(coords.x - 63f, Screen.height*3.1f/5f));
+			GUI.Label (new Rect ( coords.x - 63f, Screen.height*3.2f/5f,0,50), "Score", centeredFont); // 3/5f;
 		}
 	}
 

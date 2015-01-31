@@ -21,8 +21,10 @@ public class Stats_UI : MonoBehaviour {
 	private Student_IO ioscript;
 	private List<string> sectionNames = new List<string>();
 	private List<string> fileNames = new List<string>();
-	private int section = 0;
+	private int section = 0; // The stats section
+	private int songSection = 0; // 
 	private bool statsDisplayed = true;
+	private List<string> songNames = new List<string>();
 
 	public GUIStyle bigFont;
 	public GUIStyle mediumFont;
@@ -42,6 +44,26 @@ public class Stats_UI : MonoBehaviour {
 		ioscript = (Student_IO) s_io.GetComponent(typeof(Student_IO));
 		sectionNames.Add ("General Stats");
 		sectionNames.Add ("Score/Time");
+
+		// Get all the song names and their stats
+		string directoryName = @"Songs";
+		DirectoryInfo songDirectories = new DirectoryInfo(directoryName);
+		
+		DirectoryInfo[] songs = songDirectories.GetDirectories();
+		List<string> names = new List<string>();
+		
+		int songDirectoryCount = songs.Length;
+		for (int i = 0; i < songDirectoryCount; i++)
+		{
+			DirectoryInfo songDirectory = songs[i];
+			string songFile = Path.Combine(songDirectory.FullName, "info.song");
+			
+			if (File.Exists(songFile))
+				continue;
+			
+			songNames.Add(songDirectory.Name);
+		}
+
 		// teacher version things
 		if(!studentVersion) {
 			string filepath = Application.dataPath;
@@ -116,7 +138,7 @@ public class Stats_UI : MonoBehaviour {
 			}
 		}
 		// Below: UI Common among all versions
-		if (GUI.Button (new Rect (Screen.width - Screen.width/4 - Screen.width/16, Screen.height/3, Screen.width/16, 24), "->")) {
+		if (GUI.Button (new Rect (Screen.width - Screen.width/4 - Screen.width/16, Screen.height/3 + 25, Screen.width/16, 24), "->")) {
 			section++;
 			if(section >= sectionNames.Count) {
 				section = 0;
@@ -125,7 +147,7 @@ public class Stats_UI : MonoBehaviour {
 			statsDisplayed = !statsDisplayed;
 			axisScript.toggleVisibility();
 		}
-		if (GUI.Button (new Rect (Screen.width/4, Screen.height/3, Screen.width/16, 24), "<-")) {
+		if (GUI.Button (new Rect (Screen.width/4, Screen.height/3 + 25, Screen.width/16, 24), "<-")) {
 			section--;
 			if(section < 0) {
 				section = sectionNames.Count - 1;
@@ -134,15 +156,28 @@ public class Stats_UI : MonoBehaviour {
 			statsDisplayed = !statsDisplayed;
 			axisScript.toggleVisibility();
 		}
-		GUI.Box (new Rect (Screen.width/4 + Screen.width/16, Screen.height/3, Screen.width * 3.01f/8f, 24), sectionNames[section]);
+		if (GUI.Button (new Rect (Screen.width/4, Screen.height/3, Screen.width/16, 24), "<-")) {
+			songSection++;
+			if(songSection >= songNames.Count) {
+				songSection = 0;
+			}
+		}
+		if (GUI.Button (new Rect (Screen.width - Screen.width/4 - Screen.width/16, Screen.height/3, Screen.width/16, 24), "->")) {
+			songSection--;
+			if(songSection < 0) {
+				songSection = songNames.Count - 1;
+			}
+		}
+		GUI.Box (new Rect (Screen.width/4 + Screen.width/16, Screen.height/3 + 25, Screen.width * 3.01f/8f, 24), sectionNames[section]);
+		GUI.Box (new Rect (Screen.width/4 + Screen.width/16, Screen.height/3, Screen.width * 3.01f/8f, 24), songNames[songSection]);
 		// Display Stats
 		if(statsDisplayed) {
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(1/8f) + 20f,300 + 20f,50), "Attempts: " + sd.attempts, mediumFont);
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(2/8f) + 20f,300 + 20f,50), "Best Score: " + sd.bestScore, mediumFont);
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(3/8f) + 20f,300 + 20f,50), "Mean Score: " + sd.meanScore, mediumFont);
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(4/8f) + 20f,300 + 20f,50), "Total Score: " + sd.totalScore, mediumFont);
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Attempts: " + sd.attempts, mediumFont); // Used to be /8f
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(2/9f) + 20f + 30f,300 + 20f,50), "Best Score: " + sd.bestScore, mediumFont);
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(3/9f) + 20f + 30f,300 + 20f,50), "Mean Score: " + sd.meanScore, mediumFont);
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(4/9f) + 20f + 30f,300 + 20f,50), "Total Score: " + sd.totalScore, mediumFont);
 			// Column 2
-			GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(1/8f) + 20f,300 + 20f,50), "Most Hits: " + sd.mostHits, mediumFont);
+			GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Most Hits: " + sd.mostHits, mediumFont);
 			//GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + 133f + 20f,300 + 20f,50), "More stats to come!", mediumFont);
 		}
 	}
