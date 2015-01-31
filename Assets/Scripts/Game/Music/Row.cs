@@ -117,7 +117,7 @@ public class Row : MonoBehaviour
 	// returns false if input registers a miss
 	public bool ExecuteInput() {
 		// User input
-		if(!isHit && (transform.position.x > -16f && transform.position.x < -13f)) {
+		if(!isHit && (transform.position.x > -17f && transform.position.x < -13f)) {
 			if(Input.GetKeyDown ("a")) {
 				return executeNote (3);
 			} else

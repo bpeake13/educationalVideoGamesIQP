@@ -6,7 +6,7 @@ public class Counter : MonoBehaviour {
 	public
 	int value = 0;
 	int minValue = 0;
-	int maxValue = 99999999;
+	int maxValue = int.MaxValue;
 
 	// Use this for initialization
 	void Start () {

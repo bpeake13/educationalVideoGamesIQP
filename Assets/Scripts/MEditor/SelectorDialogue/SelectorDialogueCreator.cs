@@ -5,7 +5,7 @@ public class SelectorDialogueCreator : MonoBehaviour
 {
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public void CreateDialogue(string[] items, SelectorDialogue.OnDialogueClosedEvent onClosed, string title, string errorMessage)

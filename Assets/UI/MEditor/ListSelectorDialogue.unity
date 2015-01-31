@@ -150,8 +150,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1610018026}
   m_HandleRect: {fileID: 1610018025}
   m_Direction: 3
-  m_Value: 0
-  m_Size: 1
+  m_Value: .239234433
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -475,7 +475,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -528,6 +527,7 @@ CanvasGroup:
     type: 2}
   m_PrefabInternal: {fileID: 1287217048}
   m_GameObject: {fileID: 1255429072}
+  m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
@@ -626,6 +626,10 @@ Prefab:
     - target: {fileID: 22400032, guid: f5c507b92c6e901428f35a025dc832f3, type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400010, guid: f5c507b92c6e901428f35a025dc832f3, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 63.5999985
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5c507b92c6e901428f35a025dc832f3, type: 2}
@@ -932,7 +936,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 63.5999985}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: 1}
 --- !u!114 &1648336444
