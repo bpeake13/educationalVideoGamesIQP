@@ -97,11 +97,19 @@ public class Stats_Graph : MonoBehaviour {
 
 	void OnGUI() {
 		if(graphDisplayed) {
-			GUI.Label (new Rect (Screen.width/2f - 373, Screen.height/2.6f,100,200), maxValue.ToString(), font);
+			/*GUI.Label (new Rect (Screen.width/2f - 373, Screen.height/2.6f,100,200), maxValue.ToString(), font);
 			GUI.Label (new Rect (Screen.width/2f - 373, Screen.height*3.1f/4,100,50), minValue.ToString(), font);
 			GUI.Label (new Rect (Screen.width/2f, Screen.height*3.25f/4,0,50), "Time", centeredFont);
 			GUIUtility.RotateAroundPivot(-90, new Vector2(Screen.width/2f - 330, Screen.height*3f/5f));
-			GUI.Label (new Rect (Screen.width/2f - 330, Screen.height*3f/5f,0,50), "Score", centeredFont);
+			GUI.Label (new Rect (Screen.width/2f - 330, Screen.height*3f/5f,0,50), "Score", centeredFont);*/
+
+			Vector2 coords = Camera.main.WorldToScreenPoint(new Vector3(-4.4f, 0f, -5f));
+
+			GUI.Label (new Rect ( coords.x - 110f, Screen.height/2.6f,100,200), maxValue.ToString(), font);
+			GUI.Label (new Rect ( coords.x - 110f, Screen.height*3.1f/4,100,50), minValue.ToString(), font);
+			GUI.Label (new Rect (Screen.width*(1/2f), Screen.height*3.25f/4,0,50), "Time", centeredFont);
+			GUIUtility.RotateAroundPivot(-90, new Vector2(coords.x - 63f, Screen.height*3f/5f));
+			GUI.Label (new Rect ( coords.x - 63f, Screen.height*3f/5f,0,50), "Score", centeredFont);
 		}
 	}
 

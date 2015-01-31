@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Profile_Stub_UI : MonoBehaviour {
 
-	private bool studentVersion = true; //
+	private bool studentVersion = false; //
 	// The currently loaded student data
 	Student_Data studentData;
 	private GameObject sp; // The student profile object

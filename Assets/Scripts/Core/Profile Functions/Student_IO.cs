@@ -52,7 +52,7 @@ public class Student_IO : MonoBehaviour {
 	}
 
 	// Exports student data to the given folder
-	public void Export(string in_filepath, Student_Data data) {
+	public void Export(string in_filepath, Student_Data data, bool encryption = true) {
 		string tname = data.s_name;
 		string f_filepath = in_filepath + @tname + ".txt";
 		// Set file attributes so it can be wrote to
@@ -66,7 +66,7 @@ public class Student_IO : MonoBehaviour {
 		}
 		// Export the xml using encryption
 		var serializer = new XmlSerializer(typeof(Student_Data));
-		if(!useEncryption) {
+		if(!useEncryption || !encryption) {
 			var stream = new FileStream(f_filepath, FileMode.Create);
 			serializer.Serialize(stream, data);
 			stream.Close();
