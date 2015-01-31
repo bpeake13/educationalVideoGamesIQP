@@ -48,8 +48,8 @@ public class Game_UI : MonoBehaviour {
 	// GUI methods related to monsters
 	void OnGUI () {
 		GUI.Box (new Rect(Screen.width - 190, 10, 180, 35), "");
-		GUI.Label (new Rect (Screen.width/2,50,0,50), "Enemy: " + Monster.Instance.getEnemyType(0), enemyFont);
-		GUI.Label (new Rect (Screen.width - 180,10,1000,50), "Health: " + Monster.Instance.getEnemyHealth(0).getValue (), font);
+		GUI.Label (new Rect (Screen.width/2,50,0,50), "Enemy: " + EnemyManager.Instance.getEnemyType(0), enemyFont);
+		GUI.Label (new Rect (Screen.width - 180,10,1000,50), "Health: " + EnemyManager.Instance.getEnemy(0).Health, font);
 		// TODO: Terrible place for the rest of this
 		// Metric based GUI here for now
 		GUI.Box (new Rect(10, 10, 180, 70), "");
@@ -57,7 +57,7 @@ public class Game_UI : MonoBehaviour {
 		GUI.Label (new Rect (20,45,1000,50), "Misses: " + gmscript.misses, font);
 		//GUI.Label (new Rect (20,80,1000,50), "Score: " + gmscript.score, font);
 		// Display Accumulater
-		GUI.Label (new Rect(Screen.width/2, Screen.height/5 - 16, 1, 1), Monster.Instance.getAccumulaterValue().ToString(), centeredFont);
+		GUI.Label (new Rect(Screen.width/2, Screen.height/5 - 16, 1, 1), EnemyManager.Instance.getAccumulaterValue().ToString(), centeredFont);
 		// Offsets
 		int offset = 62; // 64
 		int off2 = 280; // 212
@@ -85,7 +85,7 @@ public class Game_UI : MonoBehaviour {
 		GUI.DrawTexture (new Rect (3,3, Screen.width/2, 20),progressBarEmpty, ScaleMode.StretchToFill );
 		
 		// draw the filled-in part:
-		float barDisplay = Monster.Instance.getEnemyHealth(0).getValue ()/(float)Monster.Instance.getEnemyHealth(0).getMaxValue();
+		float barDisplay = EnemyManager.Instance.getEnemy(0).Health/(float)EnemyManager.Instance.getEnemy(0).MaxHealth;
 		GUI.BeginGroup (new Rect (3, 3, Screen.width/2 * barDisplay, 20));
 		GUI.DrawTexture (new Rect (0,0, Screen.width/2, 20),progressBarFull, ScaleMode.StretchToFill );
 		

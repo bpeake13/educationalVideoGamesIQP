@@ -18,7 +18,7 @@ public class AttackNote : Note {
 	
 	public override void Execute ()
 	{
-		Monster.Instance.onHit(attack);
+        EnemyManager.Instance.addAccumulater(attack);
 	}
 	
 }

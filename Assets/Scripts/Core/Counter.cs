@@ -3,74 +3,40 @@ using System.Collections;
 
 public class Counter : MonoBehaviour {
 
-	public
-	int value = 0;
-	int minValue = 0;
-	int maxValue = 99999999;
+    public int Value
+    {
+        get { return value; }
+        set 
+        {
+            this.value = value;
+            onChangedEvent.Invoke(value);
+        }
+    }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public CounterChangedEvent OnCounterChanged
+    {
+        get { return onChangedEvent; }
+        set { onChangedEvent = value; }
+    }
 
 	public
 	void add(int input) {
-		value += input;
-		if(value > maxValue) {
-			value = maxValue;
-		} else
-		if(value < minValue) {
-			value = minValue;
-		}
+        Value = Mathf.Clamp(value + input, minValue, maxValue);
 	}
 
 	public
 	void subtract(int input) {
-		value -= input;
-		if(value > maxValue) {
-			value = maxValue;
-		} else
-		if(value < minValue) {
-			value = minValue;
-		}
+        Value = Mathf.Clamp(value - input, minValue, maxValue);
 	}
 
 	public
 	void multiply(int input) {
-		value *= input;
-		if(value > maxValue) {
-			value = maxValue;
-		} else
-		if(value < minValue) {
-			value = minValue;
-		}
+        Value = Mathf.Clamp(value * input, minValue, maxValue);
 	}
 
 	public
 	void divide(int input) {
-		value /= input;
-		if(value > maxValue) {
-			value = maxValue;
-		} else
-		if(value < minValue) {
-			value = minValue;
-		}
-	}
-
-	public
-	void setValue(int input) {
-		value = input;
-		if(value > maxValue) {
-			value = maxValue;
-		} else
-		if(value < minValue) {
-			value = minValue;
-		}
+        Value = Mathf.Clamp(value / input, minValue, maxValue);
 	}
 
 	public
@@ -93,9 +59,13 @@ public class Counter : MonoBehaviour {
 		return minValue;
 	}
 
-	public
-	int getValue() {
-		return value;
-	}
-	
+    [SerializeField]
+    private CounterChangedEvent onChangedEvent;
+
+    [SerializeField]
+    private int value = 0;
+    [SerializeField]
+    private int minValue = 0;
+    [SerializeField]
+    private int maxValue = 99999999;
 }
