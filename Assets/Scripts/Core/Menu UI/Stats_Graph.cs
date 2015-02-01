@@ -9,6 +9,7 @@ public class Stats_Graph : MonoBehaviour {
 	// This class generates a graph in the center of the screen using student stats
 
 	private string oldName = "";
+	private string oldSong = "";
 	private int resolution = 800;
 	private float xOffset = -4.4f;
 	private int yOffset = -2;
@@ -20,6 +21,9 @@ public class Stats_Graph : MonoBehaviour {
 	Student_Data sd;
 	private GameObject sp; // The student profile object
 	private Student_Profile spscript;
+
+	private GameObject ui; // The stats UI object
+	private Stats_UI uiscript;
 
 	private List<int> graphValues = new List<int>();
 	private bool graphDisplayed = false;
@@ -34,6 +38,8 @@ public class Stats_Graph : MonoBehaviour {
 		sp = GameObject.Find("Profile");
 		spscript = (Student_Profile) sp.GetComponent(typeof(Student_Profile));
 		sd = spscript.getStudentData();
+		ui = GameObject.Find("Stats_UI");
+		uiscript = (Stats_UI) ui.GetComponent(typeof(Stats_UI));
 		oldName = sd.s_name;
 		initGraph ();
 		graphDisplayed = false;
@@ -44,8 +50,14 @@ public class Stats_Graph : MonoBehaviour {
 		minValue = 999999;
 		graphValues.Clear ();
 		// Add values to graph
+		Debug.Log ("initing graph");
 		for(int i = 0; i < sd.songScores.Count; i++) {
-			graphValues.Add ((int)sd.songScores[i].score);
+			if(sd.songScores[i].song_name == uiscript.getSongSection ()) {
+				graphValues.Add ((int)sd.songScores[i].score);
+			}
+			Debug.Log (i);
+			Debug.Log (uiscript.getSongSection ());
+			Debug.Log (sd.songScores[i].song_name);
 		}
 		for(int i = 0; i < graphValues.Count; i++) {
 			if(graphValues[i] > maxValue) {
@@ -83,9 +95,10 @@ public class Stats_Graph : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		sd = spscript.getStudentData();
-		if(sd.s_name != oldName) {
+		if(sd.s_name != oldName || oldSong != uiscript.getSongSection ()) {
 			particleSystem.Clear ();
 			initGraph ();
+			oldSong = uiscript.getSongSection ();
 			oldName = sd.s_name;
 		}
 		if(graphDisplayed && graphValues.Count > 1) {

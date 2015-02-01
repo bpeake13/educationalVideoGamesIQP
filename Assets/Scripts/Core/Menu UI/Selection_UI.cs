@@ -93,9 +93,9 @@ public class Selection_UI : MonoBehaviour {
 			Application.LoadLevel("Game");
 
 		// Add the song to the list of student data
-		Song_Stats sd = new Song_Stats();
-		sd.songName = song;
-		studentData.allStats.Add(sd);
+		//Song_Stats sd = new Song_Stats();
+		//sd.songName = song;
+		//studentData.allStats.Add(sd);
 	}
 
 	private bool bHideGui = false;

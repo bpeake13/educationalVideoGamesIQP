@@ -56,8 +56,9 @@ public class Student_Functions : MonoBehaviour {
 		studentData.attempts++;
 		int songSection = 0;
 		bool trigger = false;
+		string currentSong = SongLoader.Instance.GetSong().Name;
 		for(int i = 0; i < studentData.allStats.Count; i++) {
-			if(studentData.allStats[i].songName == "") {
+			if(studentData.allStats[i].songName == currentSong) {
 				songSection = i;
 				trigger = true;
 				break;
@@ -65,8 +66,9 @@ public class Student_Functions : MonoBehaviour {
 		}
 		if(!trigger) {
 			Song_Stats stats = new Song_Stats();
-			stats.songName = "";
-			studentData.allStats.Add (stats);
+			stats.songName = currentSong;
+			songSection = studentData.allStats.Count;
+			studentData.allStats.Add(stats);
 		}
 		if(gmscript.score > studentData.allStats[songSection].bestScore) {
 			studentData.allStats[songSection].bestScore = gmscript.score;
@@ -78,7 +80,7 @@ public class Student_Functions : MonoBehaviour {
 			studentData.allStats[songSection].fewestMisses = gmscript.misses;
 		}
 		Song_Score ss = new Song_Score();
-		ss.song_name = "Test";
+		ss.song_name = currentSong;
 		ss.score = gmscript.score;
 		studentData.songScores.Add (ss);
 		studentData.allStats[songSection].attempts += 1;
