@@ -42,12 +42,15 @@ public class Student_Functions : MonoBehaviour {
 			//IOScript.Export(filepath, studentData);
 		//}
 		if(Input.GetKeyDown (KeyCode.Escape)) {
-			// Update student data
-			UpdateStudentMetrics ();
-			// Export the data
-			IOScript.Export(filepath, studentData);
-			// Goto title screen or editor based on previous screen
 			string grs = PlayerPrefs.GetString( "GameReturnScreen" );
+			// Update the student metrics if one did not come from the editor
+			if(grs == "Menu2") {
+				// Update student data
+				UpdateStudentMetrics ();
+				// Export the data
+				IOScript.Export(filepath, studentData);
+			}
+			// Goto title screen or editor based on previous screen
 			Application.LoadLevel( grs );
 		}
 	}
