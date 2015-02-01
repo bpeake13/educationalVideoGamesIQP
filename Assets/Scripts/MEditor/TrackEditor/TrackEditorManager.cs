@@ -142,9 +142,9 @@ public class TrackEditorManager : MonoBehaviour
         writer.Close();
     }
 
-    public void OpenOptions()
+    public void Clear()
     {
-        Application.LoadLevel("TrackEditorOptions");
+        track.Clear();
     }
 
     public void Generate()

@@ -86,6 +86,14 @@ public class EditorRow : MonoBehaviour
         }
     }
 
+    public void Clear()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            slots[i].Delete();
+        }
+    }
+
     [SerializeField]
     private NoteEditorSlot[] slots = new NoteEditorSlot[4];
 

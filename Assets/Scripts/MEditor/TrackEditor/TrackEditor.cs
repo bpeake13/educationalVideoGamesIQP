@@ -46,6 +46,16 @@ public class TrackEditor : MonoBehaviour
         }
     }
 
+    public void Clear()
+    {
+        int totalBeats = rows.Length;
+
+        for(int i = 0; i < totalBeats; i++)
+        {
+            rows[i].Clear();
+        }
+    }
+
     public void Generate()
     {
         int totalBeats = rows.Length;

@@ -42,6 +42,15 @@ public class NoteEditorSlot : MonoBehaviour
         note.transform.localPosition = Vector3.zero;
     }
 
+    public void Delete()
+    {
+        if (note)//right click to delete the note
+        {
+            Destroy(note.gameObject);
+            note = null;
+        }
+    }
+
     void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))//get left button
@@ -92,11 +101,7 @@ public class NoteEditorSlot : MonoBehaviour
 
     protected virtual void OnRightMouse()
     {
-        if(note)//right click to delete the note
-        {
-            Destroy(note.gameObject);
-            note = null;
-        }
+        Delete();
     }
 
     protected virtual void OnMiddleMouse()
