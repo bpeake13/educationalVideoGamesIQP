@@ -112,7 +112,7 @@ public class TrackEditorManager : MonoBehaviour
 
     public void Play()
     {
-        track.Save();
+        Save();
 
 		// Set a player pref so the game knows which screen to return to
 		PlayerPrefs.SetString( "GameReturnScreen", "TrackEditor" );
