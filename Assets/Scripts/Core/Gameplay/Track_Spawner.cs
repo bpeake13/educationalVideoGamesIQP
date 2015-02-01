@@ -24,7 +24,7 @@ public class Track_Spawner : MonoBehaviour {
 		lifetime += Time.deltaTime;
 		if(timer > 60f/driver.CurrentSong.BPM && lifetime < driver.CurrentSong.Clip.length) {
 			// Spawn point (20f, 0.836f, 4.89f)
-			GameObject o = (GameObject)Instantiate (track, new Vector3( 100f, 0.836f, 4.89f), Quaternion.Euler(270, 0, 0));
+			GameObject o = (GameObject)Instantiate (track, transform.position, Quaternion.Euler(270, 0, 0));
 			timer -= 60f/driver.CurrentSong.BPM;
 			script = (Row)o.GetComponent(typeof(Row));
 			script.SetData(driver.CurrentSong.GetTrack(0).GetRow(rowNo));

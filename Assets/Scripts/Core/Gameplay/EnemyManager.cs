@@ -121,11 +121,11 @@ public class EnemyManager : MonoBehaviour {
     private void onAccumulaterValueChanged(int newValue)
     {
         bool wasDamageDelt = false;
-        foreach(Enemy e in currentEnemies)
+        foreach(Enemy e in FindObjectsOfType<Enemy>())
         {
             if(e.DamageNumber == newValue)
             {
-                e.takeDamage(newValue);
+                e.takeDamage(1);
                 wasDamageDelt = true;
             }
         }

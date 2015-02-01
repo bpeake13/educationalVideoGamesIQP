@@ -14,6 +14,7 @@ public class SpawnPoint : MonoBehaviour
             return null;
 
         Enemy newEnemy = EnemyLibrary.Instance.CreateEnemy(enemyType);
+        newEnemy.transform.position = transform.position;
         enemySlot = newEnemy;
         newEnemy.StartPoint = this;
 
@@ -26,6 +27,7 @@ public class SpawnPoint : MonoBehaviour
             return null;
 
         Enemy newEnemy = EnemyLibrary.Instance.CreateRandomEnemy();
+        newEnemy.transform.position = transform.position;
         enemySlot = newEnemy;
         newEnemy.StartPoint = this;
 

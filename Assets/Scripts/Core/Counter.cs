@@ -9,6 +9,8 @@ public class Counter : MonoBehaviour {
         set 
         {
             this.value = value;
+            if (display)
+                display.text = string.Format(format, value);
             onChangedEvent.Invoke(value);
         }
     }
@@ -17,6 +19,11 @@ public class Counter : MonoBehaviour {
     {
         get { return onChangedEvent; }
         set { onChangedEvent = value; }
+    }
+
+    void Awake()
+    {
+        Value = Value;
     }
 
 	public
@@ -61,6 +68,12 @@ public class Counter : MonoBehaviour {
 
     [SerializeField]
     private CounterChangedEvent onChangedEvent = new CounterChangedEvent();
+
+    [SerializeField]
+    private TextMesh display;
+
+    [SerializeField]
+    private string format = "{0}";
 
     [SerializeField]
     private int value = 0;

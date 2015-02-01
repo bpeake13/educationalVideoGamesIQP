@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour {
 
     protected virtual void onKilled()
     {
+        Destroy(gameObject);
         spawnPoint.Free();
     }
 }
