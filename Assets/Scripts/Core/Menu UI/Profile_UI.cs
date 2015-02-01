@@ -38,6 +38,10 @@ public class Profile_UI : MonoBehaviour {
 
 	// Inits student profile and starts the next level
 	void Proceed() {
+		if(stringToEdit == "") {
+			// TODO: an error notification would be nice here
+			return;
+		}
 		// Application.dataPath.Remove(Application.dataPath.Length - 7) + @"/Student Data/";
 		string filepath = Application.dataPath + @"/Student Data/";
 		sd = ioscript.Import(filepath + stringToEdit + ".txt", passwordToEdit);
