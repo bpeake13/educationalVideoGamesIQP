@@ -44,8 +44,8 @@ public class Stats_Graph : MonoBehaviour {
 		minValue = 999999;
 		graphValues.Clear ();
 		// Add values to graph
-		for(int i = 0; i < sd.allScores.Count; i++) {
-			graphValues.Add ((int)sd.allScores[i]);
+		for(int i = 0; i < sd.songScores.Count; i++) {
+			graphValues.Add ((int)sd.songScores[i].score);
 		}
 		for(int i = 0; i < graphValues.Count; i++) {
 			if(graphValues[i] > maxValue) {

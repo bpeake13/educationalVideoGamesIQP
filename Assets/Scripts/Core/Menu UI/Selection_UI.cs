@@ -7,9 +7,16 @@ public class Selection_UI : MonoBehaviour {
 
 	public GUIStyle bigFont;
 
+	// The currently loaded student data
+	private Student_Data studentData;
+	private GameObject sp; // The student profile object
+	private Student_Profile spscript;
+
 	// Use this for initialization
 	void Start () {
-
+		sp = GameObject.Find("Profile");
+		spscript = (Student_Profile) sp.GetComponent(typeof(Student_Profile));
+		studentData = spscript.getStudentData();
 	}
 	
 	// Update is called once per frame
@@ -81,9 +88,14 @@ public class Selection_UI : MonoBehaviour {
 			return;
 		
 		bool couldLoad = SongLoader.Instance.Load(song);
-		
+
 		if (couldLoad)
 			Application.LoadLevel("Game");
+
+		// Add the song to the list of student data
+		Song_Stats sd = new Song_Stats();
+		sd.songName = song;
+		studentData.allStats.Add(sd);
 	}
 
 	private bool bHideGui = false;

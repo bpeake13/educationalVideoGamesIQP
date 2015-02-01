@@ -57,11 +57,9 @@ public class Stats_UI : MonoBehaviour {
 		{
 			DirectoryInfo songDirectory = songs[i];
 			string songFile = Path.Combine(songDirectory.FullName, "info.song");
-			
-			if (File.Exists(songFile))
-				continue;
-			
+
 			songNames.Add(songDirectory.Name);
+
 		}
 
 		// teacher version things
@@ -172,12 +170,12 @@ public class Stats_UI : MonoBehaviour {
 		GUI.Box (new Rect (Screen.width/4 + Screen.width/16, Screen.height/3, Screen.width * 3.01f/8f, 24), songNames[songSection]);
 		// Display Stats
 		if(statsDisplayed) {
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Attempts: " + sd.attempts, mediumFont); // Used to be /8f
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(2/9f) + 20f + 30f,300 + 20f,50), "Best Score: " + sd.bestScore, mediumFont);
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(3/9f) + 20f + 30f,300 + 20f,50), "Mean Score: " + sd.meanScore, mediumFont);
-			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(4/9f) + 20f + 30f,300 + 20f,50), "Total Score: " + sd.totalScore, mediumFont);
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Attempts: " + sd.allStats[songSection].attempts, mediumFont); // Used to be /8f
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(2/9f) + 20f + 30f,300 + 20f,50), "Best Score: " + sd.allStats[songSection].bestScore, mediumFont);
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(3/9f) + 20f + 30f,300 + 20f,50), "Mean Score: " + sd.allStats[songSection].meanScore, mediumFont);
+			GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(4/9f) + 20f + 30f,300 + 20f,50), "Total Score: " + sd.allStats[songSection].totalScore, mediumFont);
 			// Column 2
-			GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Most Hits: " + sd.mostHits, mediumFont);
+			GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Most Hits: " + sd.allStats[songSection].mostHits, mediumFont);
 			//GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + 133f + 20f,300 + 20f,50), "More stats to come!", mediumFont);
 		}
 	}

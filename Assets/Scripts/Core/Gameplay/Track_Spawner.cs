@@ -12,9 +12,6 @@ public class Track_Spawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//for(int i = 0; i < 10; i++) {
-			//GameObject tp = (GameObject)Instantiate (track, new Vector3(i * 2.0F - 7.47f, 0.836f, 4.89f), Quaternion.Euler(270, 0, 0));
-		//}
 		driver = (MusicDriver)GameObject.Find("MusicDriver").GetComponent(typeof(TestMusicDriver));
 	}
 	

@@ -54,17 +54,35 @@ public class Student_Functions : MonoBehaviour {
 
 	void UpdateStudentMetrics() {
 		studentData.attempts++;
-		if(gmscript.score > studentData.bestScore) {
-			studentData.bestScore = gmscript.score;
+		int songSection = 0;
+		bool trigger = false;
+		for(int i = 0; i < studentData.allStats.Count; i++) {
+			if(studentData.allStats[i].songName == "") {
+				songSection = i;
+				trigger = true;
+				break;
+			}
 		}
-		if(gmscript.hits > studentData.mostHits) {
-			studentData.mostHits = gmscript.hits;
+		if(!trigger) {
+			Song_Stats stats = new Song_Stats();
+			stats.songName = "";
+			studentData.allStats.Add (stats);
 		}
-		if(gmscript.misses < studentData.fewestMisses) {
-			studentData.fewestMisses = gmscript.misses;
+		if(gmscript.score > studentData.allStats[songSection].bestScore) {
+			studentData.allStats[songSection].bestScore = gmscript.score;
 		}
-		studentData.allScores.Add(gmscript.score);
-		studentData.totalScore += gmscript.score;
-		studentData.meanScore = studentData.totalScore/studentData.attempts;
+		if(gmscript.hits > studentData.allStats[songSection].mostHits) {
+			studentData.allStats[songSection].mostHits = gmscript.hits;
+		}
+		if(gmscript.misses < studentData.allStats[songSection].fewestMisses) {
+			studentData.allStats[songSection].fewestMisses = gmscript.misses;
+		}
+		Song_Score ss = new Song_Score();
+		ss.song_name = "Test";
+		ss.score = gmscript.score;
+		studentData.songScores.Add (ss);
+		studentData.allStats[songSection].attempts += 1;
+		studentData.allStats[songSection].totalScore += gmscript.score;
+		studentData.allStats[songSection].meanScore = studentData.allStats[songSection].totalScore/studentData.attempts;
 	}
 }
