@@ -46,7 +46,7 @@ public class Stats_UI : MonoBehaviour {
 		sectionNames.Add ("Score/Time");
 
 		// Get all the song names and their stats
-
+		songNames.Clear ();
 		for (int i = 0; i < sd.allStats.Count; i++)
 		{
 			songNames.Add(sd.allStats[i].songName);
