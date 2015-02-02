@@ -1727,7 +1727,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!114 &1060055558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2103,7 +2103,7 @@ Transform:
   - {fileID: 1400870282}
   - {fileID: 1392422636}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!114 &1326301698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2429,55 +2429,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369704650}
---- !u!1 &1391266657
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1391266659}
-  - 114: {fileID: 1391266658}
-  m_Layer: 0
-  m_Name: NoteLib
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1391266658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1391266657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d330e0fe4af57340a0b3dfa0983a72e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noteTypes:
-  - {fileID: 11424412, guid: efc648005dc91034fa3945abf0164f18, type: 2}
-  - {fileID: 11400000, guid: a58c0b46d0202f74c9914eb443434d09, type: 2}
-  - {fileID: 11400000, guid: 69b8f425eaf80274dbbb2d778641311d, type: 2}
-  - {fileID: 11400000, guid: 39e400ea8eaa5a74cb8bc12b157a201d, type: 2}
-  - {fileID: 11467218, guid: 1923d923414cdb74ca8cb311a399cae9, type: 2}
-  - {fileID: 11423278, guid: 45e3f83e91a17ef46a328c61d2a098b6, type: 2}
-  - {fileID: 11436374, guid: 8aedd1aea5733d5419f0e27c91cfe8ce, type: 2}
-  - {fileID: 11402524, guid: fb29abe73705eb74b8f8f721d9d7834e, type: 2}
-  - {fileID: 11452916, guid: b7fbb3d19f39610428493f1b2f879001, type: 2}
---- !u!4 &1391266659
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1391266657}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .438640386, y: .555014908, z: -1.91015625}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
 --- !u!1 &1392422635
 GameObject:
   m_ObjectHideFlags: 0
@@ -2822,6 +2773,52 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1616189864}
+--- !u!1 &1626190205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1626190207}
+  - 114: {fileID: 1626190206}
+  m_Layer: 0
+  m_Name: NoteTypeLib
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1626190206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1626190205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d330e0fe4af57340a0b3dfa0983a72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noteTypes:
+  - {fileID: 11400000, guid: 354f189317b6174438bbe7a2c91d1ed4, type: 2}
+  - {fileID: 11400000, guid: 4c1c0108037053748bad85c82371dac8, type: 2}
+  - {fileID: 11400000, guid: 8078d47805850e64ba8303cd542d1777, type: 2}
+  - {fileID: 11400000, guid: 62447b2d1040e194986f6f73f2c5e2f4, type: 2}
+  - {fileID: 11400000, guid: 2f419eeaf70569c488b0cb364e68b7b7, type: 2}
+  - {fileID: 11400000, guid: e65280063f1b821429294f4eb9fab397, type: 2}
+--- !u!4 &1626190207
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1626190205}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.66838098, y: 3.09354782, z: 3.47246146}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
 --- !u!1 &1700529067
 GameObject:
   m_ObjectHideFlags: 0
