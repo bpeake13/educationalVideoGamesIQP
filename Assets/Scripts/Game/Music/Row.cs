@@ -133,11 +133,16 @@ public class Row : MonoBehaviour
 				return executeNote (0);
 			}
 		}
-		//If can no longer hit, deduct score
+		//If can no longer hit, deduct score ir row has notes
 		if(!isHit && transform.position.x < -16f) {
-			// Whoops, missed the beat
-			gmscript.misses += 1;
-			gmscript.score -= 10;
+			// You cannot miss a row with no notes in it
+			if(notes[0] == null && notes[1] == null && notes[2] == null && notes[3] == null) {
+				return true;
+			} else {
+				// Whoops, missed the beat
+				gmscript.misses += 1;
+				gmscript.score -= 10;
+			}
 			isHit = true;
 		}
 		if(Input.GetKeyDown ("a") || Input.GetKeyDown ("s") || Input.GetKeyDown ("d") || Input.GetKeyDown ("f")) {
