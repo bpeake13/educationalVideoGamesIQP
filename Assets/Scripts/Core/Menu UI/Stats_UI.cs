@@ -59,14 +59,14 @@ public class Stats_UI : MonoBehaviour {
 				fileNames.Add (file);
 				if(file == filepath + @"/Student Data/" + sd.s_name + ".txt") {
 					viewingNo = dataNo;
-					sd = ioscript.Import (fileNames[viewingNo], "");
+					sd = ioscript.LoadProfile(fileNames[viewingNo], "");
 				}
 				dataNo++;
 			}
 		}
 		if(viewingNo == -1 && fileNames.Count > 0) {
 			viewingNo = 0;
-			sd = ioscript.Import (fileNames[0], "");
+			sd = ioscript.LoadProfile(fileNames[0], "");
 		}
 	}
 	
@@ -103,7 +103,7 @@ public class Stats_UI : MonoBehaviour {
 				if(viewingNo >= dataNo) {
 					viewingNo = 0;
 				}
-				sd = ioscript.Import (fileNames[viewingNo], "");
+				sd = ioscript.LoadProfile (fileNames[viewingNo], "");
 				spscript.setStudentData(sd);
 			}
 			if (GUI.Button (new Rect (Screen.width/4, Screen.height/3 - 49, Screen.width/16, 48), "<-")) {
@@ -111,7 +111,7 @@ public class Stats_UI : MonoBehaviour {
 				if(viewingNo < 0) {
 					viewingNo = dataNo - 1;
 				}
-				sd = ioscript.Import (fileNames[viewingNo], "");
+				sd = ioscript.LoadProfile (fileNames[viewingNo], "");
 				spscript.setStudentData(sd);
 			}
 		}

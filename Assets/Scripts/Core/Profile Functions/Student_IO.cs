@@ -87,8 +87,8 @@ public class Student_IO : MonoBehaviour {
 		}
 	}
 
-	// Imports student data from a given folder
-	public Student_Data Import(string in_filepath, string password) {
+	// Imports student data from a given folder, returns null if the named filepath DNE
+	public Student_Data LoadProfile(string in_filepath, string password) {
 		var serializer = new XmlSerializer(typeof(Student_Data));
 		FileStream stream;
 		Student_Data data;
@@ -122,14 +122,27 @@ public class Student_IO : MonoBehaviour {
 			}
 			Debug.Log("Student Data exists and loaded");
 		} else {
+			return null;
+		}
+		return data;
+	}
+
+	// Returns null if a profile with the same name exists, otherwise true
+	public Student_Data CreateProfile(string in_filepath, string password) {
+		var serializer = new XmlSerializer(typeof(Student_Data));
+		FileStream stream;
+		Student_Data data;
+		// Wop Wop Import stuff
+		if (System.IO.File.Exists(in_filepath)) {
+			return null;
+		} else {
 			// If file does not exists create a new student data object
 			data = new Student_Data();
 			data.password = password;
 			//Export (in_filepath, data);
 			Debug.Log("Student Data does not exist. New Student Data created");
+			return data;
 		}
-		//if(pass
-		return data;
 	}
 
 	// Exports text to the given folder
