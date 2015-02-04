@@ -82,8 +82,9 @@ public class Stats_Graph : MonoBehaviour {
 				int previousValue = 0;
 				previousValue = graphValues[j - 1];
 				float x = (i - (resolution)/graphValues.Count) * increment * xSize * ((graphValues.Count)/((float)graphValues.Count - 1));
+				int mod = (i % (int)((float)((resolution/graphValues.Count))));
 				float y = Mathf.Lerp(previousValue, graphValues[j], 
-				                     ((i % (int)((float)(resolution/graphValues.Count))))/(float)(resolution/graphValues.Count));
+				                     (i - (float)(j * resolution)/(float)graphValues.Count)/(float)(((1) * resolution)/(float)graphValues.Count));
 				y = ((y - minValue)/(maxValue - minValue)) * ySize;
 				points[i].position = new Vector3(x + xOffset, y + yOffset, 0f);
 				points[i].color = new Color(1f, 1f, 1f);
