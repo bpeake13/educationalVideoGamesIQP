@@ -36,7 +36,7 @@ public class Row : MonoBehaviour
 
 				// Note must not be null
 				if(note != null) {
-                    note.transform.localScale = note.transform.localScale * 2f;
+                    note.transform.localScale = note.transform.localScale * 1.8f;
                     note.transform.parent = notePoints[i].transform;
                     note.transform.localPosition = Vector3.zero;
                     note.transform.localRotation = Quaternion.identity;

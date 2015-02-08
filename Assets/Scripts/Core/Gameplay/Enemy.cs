@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour {
 
 	private string type;
@@ -16,6 +17,18 @@ public class Enemy : MonoBehaviour {
 
     [SerializeField]
     private int damageNumber = 1;
+
+    [SerializeField]
+    private string idleAnimation;
+
+    [SerializeField]
+    private string attackAnimation;
+
+    [SerializeField]
+    private string hurtAnimation;
+
+    [SerializeField]
+    private string killAnimation;
 
     private SpawnPoint spawnPoint;
 
@@ -43,6 +56,8 @@ public class Enemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		type = "Unknown";
+        animator = GetComponent<Animator>();
+        animator.Play(idleAnimation);
 	}
 
 	public void setType(string input) {
@@ -56,16 +71,25 @@ public class Enemy : MonoBehaviour {
     public virtual void takeDamage(int damage)
     {
         health -= damage;
-        if(health <= 0)
+        if (health <= 0)
         {
             health = 0;
             onKilled();
         }
+        else
+            animator.Play(hurtAnimation);
     }
 
     protected virtual void onKilled()
     {
+        animator.Play(killAnimation);
+    }
+
+    private void killFinished()
+    {
         Destroy(gameObject);
         spawnPoint.Free();
     }
+
+    private Animator animator;
 }
