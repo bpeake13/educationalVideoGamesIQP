@@ -58,6 +58,9 @@ public class Enemy : MonoBehaviour {
 		type = "Unknown";
         animator = GetComponent<Animator>();
         animator.Play(idleAnimation);
+		// Game Metric script
+		gm = GameObject.Find("GameMetric");
+		gmscript = (Game_Metric)gm.GetComponent(typeof(Game_Metric));
 	}
 
 	public void setType(string input) {
@@ -70,6 +73,7 @@ public class Enemy : MonoBehaviour {
 
     public virtual void takeDamage(int damage)
     {
+		gmscript.score += 90;
         health -= damage;
         if (health <= 0)
         {
@@ -82,6 +86,7 @@ public class Enemy : MonoBehaviour {
 
     protected virtual void onKilled()
     {
+		gmscript.score += 100;
         animator.Play(killAnimation);
     }
 
@@ -92,4 +97,7 @@ public class Enemy : MonoBehaviour {
     }
 
     private Animator animator;
+
+	private GameObject gm; // The game metric object
+	private Game_Metric gmscript;
 }

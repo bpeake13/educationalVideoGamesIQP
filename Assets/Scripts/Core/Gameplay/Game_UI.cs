@@ -52,10 +52,10 @@ public class Game_UI : MonoBehaviour {
 		//GUI.Label (new Rect (Screen.width - 180,10,1000,50), "Health: " + EnemyManager.Instance.getEnemy(0).Health, font);
 		// TODO: Terrible place for the rest of this
 		// Metric based GUI here for now
-		GUI.Box (new Rect(10, 10, 180, 70), "");
+		GUI.Box (new Rect(10, 10, 205, 105), "");
 		GUI.Label (new Rect (20,10,1000,50), "Hits: " + gmscript.hits, font);
 		GUI.Label (new Rect (20,45,1000,50), "Misses: " + gmscript.misses, font);
-		//GUI.Label (new Rect (20,80,1000,50), "Score: " + gmscript.score, font);
+		GUI.Label (new Rect (20,80,1000,50), "Score: " + gmscript.score, font);
 		// Display Accumulater
 		//GUI.Label (new Rect(Screen.width/2, Screen.height/5 - 16, 1, 1), EnemyManager.Instance.getAccumulaterValue().ToString(), centeredFont);
 		// Offsets

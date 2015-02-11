@@ -101,8 +101,8 @@ public class Row : MonoBehaviour
 	private bool executeNote(int index) {
 		if(notes[index] == null) {
 			// Whoops, missed no note here
-			gmscript.misses += 1;
-			gmscript.score -= 10;
+			//gmscript.misses += 1;
+			//gmscript.score -= 10;
 			return false;
 		}
 		pSystems[index].Play();
@@ -140,8 +140,9 @@ public class Row : MonoBehaviour
 				return true;
 			} else {
 				// Whoops, missed the beat
-				gmscript.misses += 1;
-				gmscript.score -= 10;
+				// Score deduction removed
+				//gmscript.misses += 1;
+				//gmscript.score -= 10;
 			}
 			isHit = true;
 		}

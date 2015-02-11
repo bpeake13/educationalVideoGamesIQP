@@ -127,6 +127,7 @@ public class EnemyManager : MonoBehaviour {
             {
                 e.takeDamage(1);
                 wasDamageDelt = true;
+				sword.Play ();
             }
         }
 
