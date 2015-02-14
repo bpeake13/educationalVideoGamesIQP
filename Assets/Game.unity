@@ -2124,6 +2124,7 @@ MonoBehaviour:
   hits: 0
   misses: 0
   score: 0
+  enemiesDefeated: 0
 --- !u!4 &849522008
 Transform:
   m_ObjectHideFlags: 0
@@ -2895,7 +2896,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: c1884cff7ce32864e895eff7ddbcdf9d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: .0489999987
   m_Pitch: 1
   Loop: 0

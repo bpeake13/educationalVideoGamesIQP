@@ -14,9 +14,11 @@ public class TestMusicDriver : MusicDriver
 			} else {
 				Debug.Log ("Song failed to load");
 			}
+		} else {
+			testSong = SongLoader.Instance.GetSong();
+			LoadSong(SongLoader.Instance.GetSong());
 		}
-		testSong = SongLoader.Instance.GetSong();
-		LoadSong(SongLoader.Instance.GetSong());
+
 		Play();
     }
 
