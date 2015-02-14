@@ -184,6 +184,9 @@ public class Stats_UI : MonoBehaviour {
 				GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(4/9f) + 20f + 30f,300 + 20f,50), "Total Score: " + sd.allStats[songSection].totalScore, mediumFont);
 				// Column 2
 				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Most Hits: " + sd.allStats[songSection].mostHits, mediumFont);
+				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(2/9f) + 20f + 30f,300 + 20f,50), "Most Mobs Slain: " + sd.allStats[songSection].mostEnemiesDefeated, mediumFont);
+				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(3/9f) + 20f + 30f,300 + 20f,50), "Mean Mobs Slain: " + sd.allStats[songSection].meanEnemiesDefeated, mediumFont);
+				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(4/9f) + 20f + 30f,300 + 20f,50), "Total Mobs Slain: " + sd.allStats[songSection].totalEnemiesDefeated, mediumFont);
 				//GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + 133f + 20f,300 + 20f,50), "More stats to come!", mediumFont);
 			}
 		} else {

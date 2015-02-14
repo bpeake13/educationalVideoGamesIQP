@@ -87,6 +87,7 @@ public class Enemy : MonoBehaviour {
     protected virtual void onKilled()
     {
 		gmscript.score += 100;
+		gmscript.enemiesDefeated += 1;
         animator.Play(killAnimation);
     }
 

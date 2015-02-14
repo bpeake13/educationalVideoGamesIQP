@@ -79,6 +79,9 @@ public class Student_Functions : MonoBehaviour {
 		if(gmscript.hits > studentData.allStats[songSection].mostHits) {
 			studentData.allStats[songSection].mostHits = gmscript.hits;
 		}
+		if(gmscript.enemiesDefeated > studentData.allStats[songSection].mostEnemiesDefeated) {
+			studentData.allStats[songSection].mostEnemiesDefeated = gmscript.enemiesDefeated;
+		}
 		if(gmscript.misses < studentData.allStats[songSection].fewestMisses) {
 			studentData.allStats[songSection].fewestMisses = gmscript.misses;
 		}
@@ -88,6 +91,8 @@ public class Student_Functions : MonoBehaviour {
 		studentData.songScores.Add (ss);
 		studentData.allStats[songSection].attempts += 1;
 		studentData.allStats[songSection].totalScore += gmscript.score;
+		studentData.allStats[songSection].totalEnemiesDefeated += gmscript.enemiesDefeated;
 		studentData.allStats[songSection].meanScore = studentData.allStats[songSection].totalScore/studentData.attempts;
+		studentData.allStats[songSection].meanEnemiesDefeated = studentData.allStats[songSection].totalEnemiesDefeated/(float)studentData.attempts;
 	}
 }
