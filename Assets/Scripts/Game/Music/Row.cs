@@ -113,7 +113,17 @@ public class Row : MonoBehaviour
 		isHit = true;
 		notes[index].Execute();
 		goodTone.Play ();
-		return true;
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == index)
+                continue;
+
+            if(notes[i])
+                notes[i].OnMiss();
+        }
+
+            return true;
 	}
 
 	// returns false if input registers a miss
@@ -143,6 +153,13 @@ public class Row : MonoBehaviour
 				// Score deduction removed
 				//gmscript.misses += 1;
 				//gmscript.score -= 10;
+                for(int i = 0; i < 4; i++)
+                {
+                    if (!notes[i])
+                        continue;
+
+                    notes[i].OnMiss();
+                }
 			}
 			isHit = true;
 		}

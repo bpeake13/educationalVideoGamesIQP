@@ -71,6 +71,14 @@ public class Enemy : MonoBehaviour {
 		return type;
 	}
 
+    public virtual void Attack(bool didHit)
+    {
+        if(didHit)
+            Player.Instance.Hurt(damage);
+
+        animator.Play(attackAnimation);
+    }
+
     public virtual void takeDamage(int damage)
     {
 		gmscript.score += 90;
