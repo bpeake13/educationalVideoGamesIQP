@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
 	private GameObject sp; // The student profile object
 	private Student_Profile spscript;
 
+	public AudioSource hurt;
+
     public static Player Instance
     {
         get { return instance; }
@@ -39,6 +41,7 @@ public class Player : MonoBehaviour
     public void Hurt(int damage)
     {
         healthCounter.subtract(damage);
+		//hurt.Play ();
     }
 
     void OnHealthChanged(int value)
