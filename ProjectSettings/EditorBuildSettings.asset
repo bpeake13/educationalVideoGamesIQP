@@ -25,3 +25,5 @@ EditorBuildSettings:
     path: Assets/UI/MEditor/TrackEditor.unity
   - enabled: 1
     path: Assets/UI/MEditor/EditorMainMenu.unity
+  - enabled: 1
+    path: Assets/GameOver.unity

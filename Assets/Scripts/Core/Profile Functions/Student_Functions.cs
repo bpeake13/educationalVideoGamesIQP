@@ -37,9 +37,9 @@ public class Student_Functions : MonoBehaviour {
 		string filepath = Application.dataPath + @"/Student Data/";
 		//if(Input.GetKeyDown ("e")) {
 			// Update student data
-			//UpdateStudentMetrics ();
+			// UpdateStudentMetrics ();
 			// Export the data
-			//IOScript.Export(filepath, studentData);
+			// IOScript.Export(filepath, studentData);
 		//}
 		if(Input.GetKeyDown (KeyCode.Escape)) {
 			string grs = PlayerPrefs.GetString( "GameReturnScreen" );
@@ -55,7 +55,7 @@ public class Student_Functions : MonoBehaviour {
 		}
 	}
 
-	void UpdateStudentMetrics() {
+	public void UpdateStudentMetrics() {
 		studentData.attempts++;
 		int songSection = 0;
 		bool trigger = false;
