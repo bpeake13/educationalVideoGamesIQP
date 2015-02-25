@@ -32,6 +32,10 @@ public class Enemy : MonoBehaviour {
 
     private SpawnPoint spawnPoint;
 
+	public AudioSource breath;
+	public AudioSource shield;
+	public AudioSource pain;
+
     public int Health
     {
         get { return health; }
@@ -73,9 +77,13 @@ public class Enemy : MonoBehaviour {
 
     public virtual void Attack(bool didHit)
     {
-        if(didHit)
+		breath.Play ();
+        if(didHit) {
             Player.Instance.Hurt(damage);
-
+			pain.Play ();
+		} else {
+			shield.Play ();
+		}
         animator.Play(attackAnimation);
     }
 
