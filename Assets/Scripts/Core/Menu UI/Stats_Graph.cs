@@ -51,6 +51,7 @@ public class Stats_Graph : MonoBehaviour {
 		graphValues.Clear ();
 		// Add values to graph
 		Debug.Log ("initing graph");
+		sd = spscript.getStudentData();
 		for(int i = 0; i < sd.songScores.Count; i++) {
 			if(sd.songScores[i].song_name == uiscript.getSongSection ()) {
 				graphValues.Add ((int)sd.songScores[i].score);

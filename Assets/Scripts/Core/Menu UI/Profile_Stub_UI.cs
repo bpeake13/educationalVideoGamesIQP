@@ -28,7 +28,7 @@ public class Profile_Stub_UI : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		if(studentVersion) {
+		//if(studentVersion) {
 			GUI.Box(new Rect(Screen.width - 220, 10, 190, 50), "");
 			//GUI.Box(new Rect(Screen.width/8, Screen.height/8, Screen.width * (3f/4f), Screen.height * (3f/4f)), "");
 			GUI.Label (new Rect (Screen.width - 210, 12,390, 50), studentData.s_name);
@@ -36,6 +36,6 @@ public class Profile_Stub_UI : MonoBehaviour {
 			if(GUI.Button (new Rect (Screen.width - 210, 32,120, 20), "Change Password")) {
 				Application.LoadLevel ("Password");
 			}
-		}
+		//}
 	}
 }

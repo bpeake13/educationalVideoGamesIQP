@@ -6,7 +6,7 @@ using System.IO;
 public class Stats_UI : MonoBehaviour {
 
 	Student_Data sd;
-	private bool studentVersion = true;
+	private bool studentVersion = false;
 	private int dataNo = 0; // The number of files in the directory, used exclusively
 							// in the teacher version
 	private int viewingNo = -1; // The number of the current file being viewed (based on directory position),
@@ -45,11 +45,13 @@ public class Stats_UI : MonoBehaviour {
 		sectionNames.Add ("General Stats");
 		sectionNames.Add ("Score/Time");
 
-		// Get all the song names and their stats
-		songNames.Clear ();
-		for (int i = 0; i < sd.allStats.Count; i++)
-		{
-			songNames.Add(sd.allStats[i].songName);
+		// Get all the song names and their stats for sv
+		if(studentVersion) {
+			songNames.Clear ();
+			for (int i = 0; i < sd.allStats.Count; i++)
+			{
+				songNames.Add(sd.allStats[i].songName);
+			}
 		}
 
 		// teacher version things
@@ -68,6 +70,29 @@ public class Stats_UI : MonoBehaviour {
 			viewingNo = 0;
 			sd = ioscript.LoadProfile(fileNames[0], "");
 		}
+
+		// Get all the song names and their stats for tv
+		if(!studentVersion) {
+			songNames.Clear ();
+			for(int j = 0; j < fileNames.Count; j++) {
+				sd = ioscript.LoadProfile (fileNames[j], "");
+				for (int i = 0; i < sd.allStats.Count; i++)
+				{
+					bool test = false;
+					for(int k = 0; k < songNames.Count; k++) {
+						if(songNames[k] == sd.allStats[i].songName) {
+							test = true;
+						}
+					}
+					if(!test) {
+						songNames.Add(sd.allStats[i].songName);
+					}
+				}
+			}
+		}
+
+		// Finally set profile
+		sd = ioscript.LoadProfile(fileNames[viewingNo], "");
 	}
 	
 	// Update is called once per frame
@@ -98,6 +123,7 @@ public class Stats_UI : MonoBehaviour {
 			GUI.Label (new Rect (Screen.width/2 - 150, Screen.height/6,300,49), "Viewing student data for", bigFont);
 			GUI.Box (new Rect (Screen.width/4 + Screen.width/16, Screen.height/3 - 49, Screen.width * 3.01f/8f, 48), "");
 			GUI.Label (new Rect (Screen.width/4 + Screen.width/16, Screen.height/3 - 49, Screen.width * 3.01f/8f, 48), sd.s_name, bigFont);
+			// Change profiles
 			if (GUI.Button (new Rect (Screen.width - Screen.width/4 - Screen.width/16, Screen.height/3 - 49, Screen.width/16, 48), "->")) {
 				viewingNo++;
 				if(viewingNo >= dataNo) {
@@ -105,6 +131,11 @@ public class Stats_UI : MonoBehaviour {
 				}
 				sd = ioscript.LoadProfile (fileNames[viewingNo], "");
 				spscript.setStudentData(sd);
+				/*for(int i = 0; i < sd.allStats.Count; i++) {
+					if(sd.allStats[i].songName == songNames[songSection]) {
+						songSection = i;
+					}
+				}*/
 			}
 			if (GUI.Button (new Rect (Screen.width/4, Screen.height/3 - 49, Screen.width/16, 48), "<-")) {
 				viewingNo--;
@@ -113,6 +144,12 @@ public class Stats_UI : MonoBehaviour {
 				}
 				sd = ioscript.LoadProfile (fileNames[viewingNo], "");
 				spscript.setStudentData(sd);
+				/*for(int i = 0; i < sd.allStats.Count; i++) {
+					if(sd.allStats[i].songName == songNames[songSection]) {
+						songSection = i;
+						break;
+					}
+				}*/
 			}
 		}
 		if(studentVersion) {
@@ -133,10 +170,14 @@ public class Stats_UI : MonoBehaviour {
 				Debug.Log (filepath);
 				ioscript.Export(filepath + @"/", sd, false);
 			}
-			if (GUI.Button (new Rect (Screen.width - 110, Screen.height * (9f/10f), 100, 40), "Exit")) {
+			if (GUI.Button (new Rect (Screen.width - 110, Screen.height * (9f/10f), 100, 40), "Go Back")) {
 				// Change to stats screen
-				Application.Quit();
+				Application.LoadLevel ("Menu2");
 			}
+			//if (GUI.Button (new Rect (Screen.width - 110, Screen.height * (9f/10f), 100, 40), "Exit")) {
+				// Change to stats screen
+			//	Application.Quit();
+			//}
 		}
 		// Below: UI Common among all versions
 		if (GUI.Button (new Rect (Screen.width - Screen.width/4 - Screen.width/16, Screen.height/3 + 25, Screen.width/16, 24), "->")) {
@@ -157,6 +198,7 @@ public class Stats_UI : MonoBehaviour {
 			statsDisplayed = !statsDisplayed;
 			axisScript.toggleVisibility();
 		}
+		// Toggle song sectons
 		if (GUI.Button (new Rect (Screen.width/4, Screen.height/3, Screen.width/16, 24), "<-")) {
 			if(songNames.Count > 0) {
 				songSection--;
@@ -164,6 +206,7 @@ public class Stats_UI : MonoBehaviour {
 					songSection = songNames.Count - 1;
 				}
 			}
+			spscript.setStudentData(sd);
 		}
 		if (GUI.Button (new Rect (Screen.width - Screen.width/4 - Screen.width/16, Screen.height/3, Screen.width/16, 24), "->")) {
 			if(songNames.Count > 0) {
@@ -172,21 +215,35 @@ public class Stats_UI : MonoBehaviour {
 					songSection = 0;
 				}
 			}
+			spscript.setStudentData(sd);
 		}
 		GUI.Box (new Rect (Screen.width/4 + Screen.width/16, Screen.height/3 + 25, Screen.width * 3.01f/8f, 24), sectionNames[section]);
 		if(songNames.Count > 0) {
 			GUI.Box (new Rect (Screen.width/4 + Screen.width/16, Screen.height/3, Screen.width * 3.01f/8f, 24), songNames[songSection]);
 			// Display Stats
 			if(statsDisplayed) {
-				GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Attempts: " + sd.allStats[songSection].attempts, mediumFont); // Used to be /8f
-				GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(2/9f) + 20f + 30f,300 + 20f,50), "Best Score: " + sd.allStats[songSection].bestScore, mediumFont);
-				GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(3/9f) + 20f + 30f,300 + 20f,50), "Mean Score: " + sd.allStats[songSection].meanScore, mediumFont);
-				GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(4/9f) + 20f + 30f,300 + 20f,50), "Total Score: " + sd.allStats[songSection].totalScore, mediumFont);
+				int k = songSection;
+				bool nope = false;
+				for(int i = 0; i < sd.allStats.Count; i++) {
+					if(sd.allStats[i].songName == songNames[songSection]) {
+						k = i;
+						break;
+					}
+					if(i == sd.allStats.Count - 1) {
+						nope = true;
+					}
+				}
+				if(!nope && k < sd.allStats.Count) {
+				GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Attempts: " + sd.allStats[k].attempts, mediumFont); // Used to be /8f
+				GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(2/9f) + 20f + 30f,300 + 20f,50), "Best Score: " + sd.allStats[k].bestScore, mediumFont);
+				GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(3/9f) + 20f + 30f,300 + 20f,50), "Mean Score: " + sd.allStats[k].meanScore, mediumFont);
+				GUI.Label (new Rect (Screen.width * (1f/8f) + 30, Screen.height/4 + Screen.height*(4/9f) + 20f + 30f,300 + 20f,50), "Total Score: " + sd.allStats[k].totalScore, mediumFont);
 				// Column 2
-				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Most Hits: " + sd.allStats[songSection].mostHits, mediumFont);
-				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(2/9f) + 20f + 30f,300 + 20f,50), "Most Mobs Slain: " + sd.allStats[songSection].mostEnemiesDefeated, mediumFont);
-				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(3/9f) + 20f + 30f,300 + 20f,50), "Mean Mobs Slain: " + sd.allStats[songSection].meanEnemiesDefeated, mediumFont);
-				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(4/9f) + 20f + 30f,300 + 20f,50), "Total Mobs Slain: " + sd.allStats[songSection].totalEnemiesDefeated, mediumFont);
+				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(1/9f) + 20f + 30f,300 + 20f,50), "Most Hits: " + sd.allStats[k].mostHits, mediumFont);
+				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(2/9f) + 20f + 30f,300 + 20f,50), "Most Mobs Slain: " + sd.allStats[k].mostEnemiesDefeated, mediumFont);
+				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(3/9f) + 20f + 30f,300 + 20f,50), "Mean Mobs Slain: " + sd.allStats[k].meanEnemiesDefeated, mediumFont);
+				GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + Screen.height*(4/9f) + 20f + 30f,300 + 20f,50), "Total Mobs Slain: " + sd.allStats[k].totalEnemiesDefeated, mediumFont);
+				}
 				//GUI.Label (new Rect (Screen.width * (4f/8f) + 30, Screen.height/4 + 133f + 20f,300 + 20f,50), "More stats to come!", mediumFont);
 			}
 		} else {

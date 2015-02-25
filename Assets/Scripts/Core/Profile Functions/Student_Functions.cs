@@ -92,7 +92,7 @@ public class Student_Functions : MonoBehaviour {
 		studentData.allStats[songSection].attempts += 1;
 		studentData.allStats[songSection].totalScore += gmscript.score;
 		studentData.allStats[songSection].totalEnemiesDefeated += gmscript.enemiesDefeated;
-		studentData.allStats[songSection].meanScore = studentData.allStats[songSection].totalScore/studentData.attempts;
-		studentData.allStats[songSection].meanEnemiesDefeated = studentData.allStats[songSection].totalEnemiesDefeated/(float)studentData.attempts;
+		studentData.allStats[songSection].meanScore = studentData.allStats[songSection].totalScore/studentData.allStats[songSection].attempts;
+		studentData.allStats[songSection].meanEnemiesDefeated = studentData.allStats[songSection].totalEnemiesDefeated/(float)studentData.allStats[songSection].attempts;
 	}
 }

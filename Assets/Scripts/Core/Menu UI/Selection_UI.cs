@@ -5,6 +5,8 @@ using System.IO;
 
 public class Selection_UI : MonoBehaviour {
 
+	private bool studentVersion = false;
+
 	public GUIStyle bigFont;
 
 	// The currently loaded student data
@@ -35,24 +37,45 @@ public class Selection_UI : MonoBehaviour {
 			// Quit the application
 			Application.Quit();
 		}
-		if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(1.5f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "Play Game")) {
-			// Set a player pref so the game knows which screen to return to
-			PlayerPrefs.SetString( "GameReturnScreen", "Menu2" );
-			// Load level
-			ViewSongs();
-			//Application.LoadLevel ("Game");
+		if(studentVersion) {
+			if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(1.5f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "Play Game")) {
+				// Set a player pref so the game knows which screen to return to
+				PlayerPrefs.SetString( "GameReturnScreen", "Menu2" );
+				// Load level
+				ViewSongs();
+				//Application.LoadLevel ("Game");
+			}
+			if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(2.5f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "View Stats")) {
+				// Change to stats screen
+				Application.LoadLevel ("Stats");
+			}
+			if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(3.5f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "Unlock Things!")) {
+				// Change to stats screen
+				Application.LoadLevel ("unlocks");
+			}
+		} else
+		if(!studentVersion) {
+			if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(1.5f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "Play Game")) {
+				// Set a player pref so the game knows which screen to return to
+				PlayerPrefs.SetString( "GameReturnScreen", "Menu2" );
+				// Load level
+				ViewSongs();
+				//Application.LoadLevel ("Game");
+			}
+			if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(2.16f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "View Stats")) {
+				// Change to stats screen
+				Application.LoadLevel ("Stats");
+			}
+			if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(2.83f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "Unlock Things!")) {
+				// Change to stats screen
+				Application.LoadLevel ("unlocks");
+			}
 		}
-		if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(2.16f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "View Stats")) {
-			// Change to stats screen
-			Application.LoadLevel ("Stats");
-		}
-		if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(2.83f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "Unlock Things!")) {
-			// Change to stats screen
-			Application.LoadLevel ("unlocks");
-		}
-		if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(3.5f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "Go to Editor Menu")) {
-			// Change to stats screen
-			Application.LoadLevel ("EditorMainMenu");
+		if(!studentVersion) {
+			if (GUI.Button (new Rect (Screen.width/2 - 90, Screen.height*(3.5f/6f) + Screen.height/24 + 30, 180, Screen.height/16), "Go to Editor Menu")) {
+				// Change to stats screen
+				Application.LoadLevel ("EditorMainMenu");
+			}
 		}
 	}
 
