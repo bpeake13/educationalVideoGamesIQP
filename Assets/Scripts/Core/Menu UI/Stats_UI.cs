@@ -6,6 +6,7 @@ using System.IO;
 public class Stats_UI : MonoBehaviour {
 
 	Student_Data sd;
+	Student_Data originalSD;
 	private bool studentVersion = false;
 	private int dataNo = 0; // The number of files in the directory, used exclusively
 							// in the teacher version
@@ -35,6 +36,7 @@ public class Stats_UI : MonoBehaviour {
 		sp = GameObject.Find("Profile");
 		spscript = (Student_Profile) sp.GetComponent(typeof(Student_Profile));
 		sd = spscript.getStudentData();
+		originalSD = sd;
 		g = GameObject.Find("Graph");
 		gscript = (Stats_Graph) g.GetComponent(typeof(Stats_Graph));
 		axis = GameObject.Find("Axis");
@@ -92,7 +94,11 @@ public class Stats_UI : MonoBehaviour {
 		}
 
 		// Finally set profile
-		sd = ioscript.LoadProfile(fileNames[viewingNo], "");
+		if(fileNames.Count > 0) {
+			sd = ioscript.LoadProfile(fileNames[viewingNo], "");
+		} else {
+
+		}
 	}
 	
 	// Update is called once per frame
@@ -129,8 +135,10 @@ public class Stats_UI : MonoBehaviour {
 				if(viewingNo >= dataNo) {
 					viewingNo = 0;
 				}
-				sd = ioscript.LoadProfile (fileNames[viewingNo], "");
-				spscript.setStudentData(sd);
+				if(fileNames.Count > 0) {
+					sd = ioscript.LoadProfile (fileNames[viewingNo], "");
+					spscript.setStudentData(sd);
+				}
 				/*for(int i = 0; i < sd.allStats.Count; i++) {
 					if(sd.allStats[i].songName == songNames[songSection]) {
 						songSection = i;
@@ -142,8 +150,10 @@ public class Stats_UI : MonoBehaviour {
 				if(viewingNo < 0) {
 					viewingNo = dataNo - 1;
 				}
-				sd = ioscript.LoadProfile (fileNames[viewingNo], "");
-				spscript.setStudentData(sd);
+				if(fileNames.Count > 0) {
+					sd = ioscript.LoadProfile (fileNames[viewingNo], "");
+					spscript.setStudentData(sd);
+				}
 				/*for(int i = 0; i < sd.allStats.Count; i++) {
 					if(sd.allStats[i].songName == songNames[songSection]) {
 						songSection = i;
@@ -160,6 +170,8 @@ public class Stats_UI : MonoBehaviour {
 				ioscript.Export(filepath + @"/", sd);
 			}
 			if (GUI.Button (new Rect (Screen.width - 110, Screen.height * (9f/10f), 100, 40), "Go Back")) {
+				sd = originalSD;
+				spscript.setStudentData(sd);
 				// Change to stats screen
 				Application.LoadLevel ("Menu2");
 			}
@@ -171,6 +183,8 @@ public class Stats_UI : MonoBehaviour {
 				ioscript.Export(filepath + @"/", sd, false);
 			}
 			if (GUI.Button (new Rect (Screen.width - 110, Screen.height * (9f/10f), 100, 40), "Go Back")) {
+				sd = originalSD;
+				spscript.setStudentData(sd);
 				// Change to stats screen
 				Application.LoadLevel ("Menu2");
 			}

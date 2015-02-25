@@ -67,8 +67,11 @@ public class Student_IO : MonoBehaviour {
 		// Export the xml using encryption
 		var serializer = new XmlSerializer(typeof(Student_Data));
 		if(!useEncryption || !encryption) {
+			string tp = data.password;
+			data.password = "UNAVAILABLE";
 			var stream = new FileStream(f_filepath, FileMode.Create);
 			serializer.Serialize(stream, data);
+			data.password = tp;
 			stream.Close();
 		} else {
 			XmlWriterSettings settings = new XmlWriterSettings();
@@ -79,7 +82,7 @@ public class Student_IO : MonoBehaviour {
 				writer.Close ();
 			}
 			var desEncryption = new DESEncryption();
-			string encryptedText = desEncryption.Encrypt(sb.ToString(), "password");
+			string encryptedText = desEncryption.Encrypt(sb.ToString(), "ogm19yNvHuHU35I&XVGSdlPjHuIz$5NNvBJ7^$Bj");
 			Write (f_filepath, encryptedText);
 			// Set file attributes to read only
 			FileAttributes attributes = File.GetAttributes(f_filepath);
@@ -112,7 +115,7 @@ public class Student_IO : MonoBehaviour {
 				string decryptedData;
 				string fileContents;
 				Load (in_filepath, out fileContents);
-				desEncryption.TryDecrypt(fileContents, "password", out decryptedData);
+				desEncryption.TryDecrypt(fileContents, "ogm19yNvHuHU35I&XVGSdlPjHuIz$5NNvBJ7^$Bj", out decryptedData);
 				using (TextReader textReader = new StringReader(decryptedData))
 				{
 					data = serializer.Deserialize(textReader) as Student_Data;
