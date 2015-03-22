@@ -58,6 +58,7 @@ public class Game_UI : MonoBehaviour {
 		GUI.Label (new Rect (20,10,1000,50), "Hits: " + gmscript.hits, font);
 		GUI.Label (new Rect (20,45,1000,50), "Misses: " + gmscript.misses, font);
 		GUI.Label (new Rect (20,80,1000,50), "Score: " + gmscript.score, font);
+		GUI.Label (new Rect (55,Screen.height/3.2f,1000,50), "Health", font);
 		// Display Accumulater
 		//GUI.Label (new Rect(Screen.width/2, Screen.height/5 - 16, 1, 1), EnemyManager.Instance.getAccumulaterValue().ToString(), centeredFont);
 		// Offsets

@@ -1507,7 +1507,7 @@ RectTransform:
   m_GameObject: {fileID: 452034684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -20.0329437}
-  m_LocalScale: {x: .0522268973, y: .0522268973, z: .0522268973}
+  m_LocalScale: {x: .0523457825, y: .0523457825, z: .0523457825}
   m_Children:
   - {fileID: 1968455594}
   m_Father: {fileID: 0}
@@ -6255,6 +6255,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1968455594}
   - 114: {fileID: 1968455593}
+  - 222: {fileID: 1968455595}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -6329,6 +6330,12 @@ RectTransform:
   m_AnchoredPosition: {x: 32, y: -158}
   m_SizeDelta: {x: 20, y: 135}
   m_Pivot: {x: .5, y: .5}
+--- !u!222 &1968455595
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1968455592}
 --- !u!1 &2045956585
 GameObject:
   m_ObjectHideFlags: 0

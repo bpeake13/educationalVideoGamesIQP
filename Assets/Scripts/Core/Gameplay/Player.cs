@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 	private Student_Profile spscript;
 
 	public AudioSource hurt;
+	private float timer = 0f;
 
     public static Player Instance
     {
@@ -38,10 +39,22 @@ public class Player : MonoBehaviour
 		studentData = spscript.getStudentData();
     }
 
+	void Update() {
+		// This should probably have its own script
+		if(timer > 0f) {
+			timer -= Time.deltaTime;
+		}
+		if(timer <= 0f) {
+			Camera.main.backgroundColor = new Color(49f/255f, 77f/255f, 121/255f);
+		}
+	}
+
     public void Hurt(int damage)
     {
         healthCounter.subtract(damage);
 		//hurt.Play ();
+		Camera.main.backgroundColor = new Color(66f/255f, 77f/277f, 121/277f);;
+		timer = 0.2f;
     }
 
     void OnHealthChanged(int value)
