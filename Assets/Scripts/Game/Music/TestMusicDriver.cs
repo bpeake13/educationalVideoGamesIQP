@@ -18,9 +18,16 @@ public class TestMusicDriver : MusicDriver
 			testSong = SongLoader.Instance.GetSong();
 			LoadSong(SongLoader.Instance.GetSong());
 		}
-
-		Play();
     }
+
+	public void Activate() {	
+		isActive = true;
+		Play();
+	}
+
+	public bool getActiveStatus() {
+		return isActive;
+	}
 
     protected override void OnBeatStart()
     {
@@ -47,6 +54,8 @@ public class TestMusicDriver : MusicDriver
     private int beatCount;
 
     private float beatTimer;
+
+	private bool isActive = false;
 
     private Song testSong;
 }

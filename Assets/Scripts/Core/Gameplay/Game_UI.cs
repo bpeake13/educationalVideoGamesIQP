@@ -42,7 +42,9 @@ public class Game_UI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		lifeTimer += Time.deltaTime;
+		if(mdscript.getActiveStatus()) {
+			lifeTimer += Time.deltaTime;
+		}
 	}
 
 	// GUI methods related to monsters
